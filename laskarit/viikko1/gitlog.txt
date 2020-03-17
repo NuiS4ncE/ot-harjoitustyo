@@ -1,0 +1,99 @@
+commit aa94496086a2b07f855ce78fa83327d48b7d628d
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:46:32 2020 +0200
+
+    harjoittelut tehty
+
+ tiedostoja/file1.txt                 |  1 -
+ tiedostoja/{file2.txt => file22.txt} |  0
+ tiedostoja/file3.txt                 | 78 +-----------------------------------
+ 3 files changed, 1 insertion(+), 78 deletions(-)
+
+commit 7462e168dd8837cacbcc0f702444efbbcdeff17b
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:34:50 2020 +0200
+
+    lololol
+
+ tiedostoja/file3.txt | 77 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
+
+commit 18f2a7896a7cfcf06e5ebb7be52717ac02cd6d6d
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:32:13 2020 +0200
+
+    tiedostoja luotu
+
+ tiedostoja/file1.txt | 1 +
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 1 insertion(+)
+
+commit bdbec4c4f50e8938fd9a95f2d885ee94f5e147b2
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:23:47 2020 +0200
+
+    eka ja kolmas muokattu
+
+ eka.txt    | 79 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ kolmas.txt |  2 +-
+ 2 files changed, 78 insertions(+), 3 deletions(-)
+
+commit 5c08a6709fc37bb90d1b5ace37f2781d4579b6c0
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:22:41 2020 +0200
+
+    poistettu toinen ja uudelleennimetty tiedosto
+
+ tiedosto.txt => eka.txt |  0
+ toinen.txt              | 77 -------------------------------------------------
+ 2 files changed, 77 deletions(-)
+
+commit 79fad3ed5e80ec2405686dbd4e68982ffaf0c4a5
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:17:26 2020 +0200
+
+    toinen muokattu
+
+ toinen.txt | 78 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 77 insertions(+), 1 deletion(-)
+
+commit d1847305599ef442f77695953ba586fb0ff4f514
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 18:03:06 2020 +0200
+
+    kolmas ja toinen muokattu ja stuff lisätty
+
+ kolmas.txt          | 1 +
+ stuff/stufftext.txt | 0
+ toinen.txt          | 1 +
+ 3 files changed, 2 insertions(+)
+
+commit 0ee680aafde9ac4fe3a21b2fb1d748c3cfcb2ba8
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 17:59:32 2020 +0200
+
+    kolmas.txt lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit d8ee7c9455a420ecbf11363b548eb86d1f7ca162
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 17:59:03 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 2 ++
+ toinen.txt   | 0
+ 2 files changed, 2 insertions(+)
+
+commit aef4570f42149ff409871c65e9607481ac30eae5
+Author: NuiS4ncE <nuis4nce@hotmail.com>
+Date:   Tue Mar 17 17:54:20 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+

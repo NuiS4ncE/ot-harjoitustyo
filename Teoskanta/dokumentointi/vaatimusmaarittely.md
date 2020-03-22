@@ -19,7 +19,7 @@ Aluksi käyttäjiä on vain tavallinen käyttäjä. Käyttäjiä on tarkoitus ol
 - käyttäjä näkee teoskategoriat
 - käyttäjä voi luoda uuden kategorian 
 	- uusi kategoria näkyy vain käyttäjälle
-- käyttäjä voi navikoida alakategoriaan, jossa näkee teosten listauksen
+- käyttäjä voi navigoida alakategoriaan, jossa näkee teosten listauksen
 - käyttäjä voi lisätä teoksia alakategorian mukaan
 - käyttäjä voi kirjautua ulos järjestelmästä
 

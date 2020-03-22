@@ -9,4 +9,4 @@
 
 ### Viikko2
 
-[vaatimusmaarittely.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentaatio/vaatimusmaarittely.md)
+[vaatimusmaarittely.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/vaatimusmaarittely.md)

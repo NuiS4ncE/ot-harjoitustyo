@@ -8,7 +8,7 @@ public class UserDao implements Dao<User, Integer> {
 
     @Override
     public void create(User user) throws SQLException {
-        Connection connection = DriverManager.getConnection("./database.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users"
                 + "(username, password)"
@@ -23,7 +23,7 @@ public class UserDao implements Dao<User, Integer> {
 
     @Override
     public User read(Integer key) throws SQLException {
-        Connection connection = DriverManager.getConnection("./database.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
         stmt.setInt(1, key);

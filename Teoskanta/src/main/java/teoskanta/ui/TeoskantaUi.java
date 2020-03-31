@@ -34,6 +34,56 @@ public class TeoskantaUi extends Application {
         
         //to be continued.. or edited.. or deleted..
     }
+    
+    private void createUser(Label loginMessage, Stage primaryStage){
+        // create new user scene
+        
+               VBox createUserPane = new VBox(10);
+        
+        HBox createUsernamePane = new HBox(10);
+        createUsernamePane.setPadding(new Insets(10));
+        TextField createUsernameInput = new TextField();
+        Label createUsernameLabel = new Label("username");
+        Label createPasswordLabel = new Label("password");
+        createUsernameLabel.setPrefWidth(100);
+        createUsernamePane.getChildren().addAll(createUsernameLabel, createUsernameInput);
+        
+        HBox newNamePane = new HBox(10);
+        newNamePane.setPadding(new Insets(10));
+        TextField newPasswordInput = new TextField();
+        Label newPasswordLabel = new Label("password");
+        newPasswordLabel.setPrefWidth(100);
+        newNamePane.getChildren().addAll(newPasswordLabel, newPasswordInput);        
+        
+        Label userCreationMessage = new Label();
+        
+        Button createNewUserButton = new Button("create");
+        createNewUserButton.setPadding(new Insets(10));
+
+        createNewUserButton.setOnAction(e->{
+            String username = createUsernameInput.getText();
+            String password = newPasswordInput.getText();
+   
+            if ( username.length()==2 || password.length()<2 ) {
+                userCreationMessage.setText("username or name too short");
+                userCreationMessage.setTextFill(Color.RED);              
+            } else if ( UserService.newUser(username, password) ){
+                userCreationMessage.setText("");                
+                loginMessage.setText("new user created");
+                loginMessage.setTextFill(Color.GREEN);
+                primaryStage.setScene(loginScene);      
+            } else {
+                userCreationMessage.setText("username has to be unique");
+                userCreationMessage.setTextFill(Color.RED);        
+            }
+ 
+        });  
+        
+        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton); 
+       
+        newUserScene = new Scene(createUserPane, 300, 250);
+        
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -78,6 +128,8 @@ public class TeoskantaUi extends Application {
 
         loginScene = new Scene(loginPane, 600, 250);
         
+        createUser(loginMessage, primaryStage);
+
         
         // main scene
         

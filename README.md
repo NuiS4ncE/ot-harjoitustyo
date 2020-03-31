@@ -7,7 +7,7 @@ University of Helsinki department of Computer Science exercise on the course Ohj
 
 ## Teoskanta
 
-Teoskanta is a Java program that can be used to list and sort different artistic titles i.e books, movies etc. 
+Sovelluksen avulla käyttäjä voi hallinnoida ja listata haluamiaan teoksia oli se sitten elokuvia, musiikkia tai kirjoja. Sovellusta voi käyttää eri käyttäjät, joilla jokaisella on omat teoksensa. 
 
 ### Suoritus
 

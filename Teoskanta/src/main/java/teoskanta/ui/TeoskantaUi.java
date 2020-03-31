@@ -1,5 +1,7 @@
 package teoskanta.ui;
 
+import java.io.File;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,18 +30,18 @@ public class TeoskantaUi extends Application {
     private Scene titleScene;
     private VBox titleNodes;
     private UserDao userDao;
-    
-    private void redrawTitlelist(){
+
+    private void redrawTitlelist() {
         titleNodes.getChildren().clear();
-        
+
         //to be continued.. or edited.. or deleted..
     }
-    
-    private void createUser(Label loginMessage, Stage primaryStage){
+
+    private void createUser(Label loginMessage, Stage primaryStage) {
+
         // create new user scene
-        
-               VBox createUserPane = new VBox(10);
-        
+        VBox createUserPane = new VBox(10);
+
         HBox createUsernamePane = new HBox(10);
         createUsernamePane.setPadding(new Insets(10));
         TextField createUsernameInput = new TextField();
@@ -47,48 +49,56 @@ public class TeoskantaUi extends Application {
         Label createPasswordLabel = new Label("password");
         createUsernameLabel.setPrefWidth(100);
         createUsernamePane.getChildren().addAll(createUsernameLabel, createUsernameInput);
-        
+
         HBox newNamePane = new HBox(10);
         newNamePane.setPadding(new Insets(10));
         TextField newPasswordInput = new TextField();
         Label newPasswordLabel = new Label("password");
         newPasswordLabel.setPrefWidth(100);
-        newNamePane.getChildren().addAll(newPasswordLabel, newPasswordInput);        
-        
+        newNamePane.getChildren().addAll(newPasswordLabel, newPasswordInput);
+
         Label userCreationMessage = new Label();
-        
+
         Button createNewUserButton = new Button("create");
         createNewUserButton.setPadding(new Insets(10));
 
-        createNewUserButton.setOnAction(e->{
+        createNewUserButton.setOnAction(e -> {
             String username = createUsernameInput.getText();
             String password = newPasswordInput.getText();
-   
-            if ( username.length()==2 || password.length()<2 ) {
+
+            if (username.length() == 2 || password.length() < 2) {
                 userCreationMessage.setText("username or name too short");
-                userCreationMessage.setTextFill(Color.RED);              
-            } else if ( UserService.newUser(username, password) ){
-                userCreationMessage.setText("");                
+                userCreationMessage.setTextFill(Color.RED);
+            } else if (UserService.newUser(username, password)) {
+                userCreationMessage.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(loginScene);      
+                primaryStage.setScene(loginScene);
             } else {
                 userCreationMessage.setText("username has to be unique");
-                userCreationMessage.setTextFill(Color.RED);        
+                userCreationMessage.setTextFill(Color.RED);
             }
- 
-        });  
-        
-        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton); 
-       
-        newUserScene = new Scene(createUserPane, 300, 250);
-        
+
+        });
+
+        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton);
+
+        newUserScene = new Scene(createUserPane, 600, 250);
+
     }
 
     @Override
     public void start(Stage primaryStage) {
         userDao = new UserDao();
         UserService = new UserService(userDao);
+
+        // check database exists
+        try {
+            userDao.checkDatabaseFile();
+        } catch (Exception e) {
+            System.out.println("Database creation failed: " + e);
+        }
+
         VBox loginPane = new VBox(10);
         HBox inputPane = new HBox(10);
         loginPane.setPadding(new Insets(10));
@@ -110,7 +120,7 @@ public class TeoskantaUi extends Application {
             String password = passwordInput.getText();
             System.out.println(password);
             //menuLabel.setText(username + " logged in");
-            if(UserService.login(username, password)){
+            if (UserService.login(username, password)) {
                 loginMessage.setText("");
                 redrawTitlelist();
                 primaryStage.setScene(titleScene);
@@ -127,60 +137,57 @@ public class TeoskantaUi extends Application {
         loginPane.getChildren().addAll(loginMessage, inputPane, loginButton, createButton);
 
         loginScene = new Scene(loginPane, 600, 250);
-        
+
         createUser(loginMessage, primaryStage);
 
-        
         // main scene
-        
-        ScrollPane todoScollbar = new ScrollPane();       
+        ScrollPane todoScollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(todoScollbar);
         titleScene = new Scene(mainPane, 300, 250);
-                
-        HBox menuPane = new HBox(10);    
+
+        HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
-        Button logoutButton = new Button("logout");      
+        Button logoutButton = new Button("logout");
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
-       /* logoutButton.setOnAction(e->{
+        /* logoutButton.setOnAction(e->{
             todoService.logout();
             primaryStage.setScene(loginScene);
         });        
-        */
-        HBox createForm = new HBox(10);    
+         */
+        HBox createForm = new HBox(10);
         Button createTodo = new Button("create");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         TextField newTodoInput = new TextField();
         createForm.getChildren().addAll(newTodoInput, spacer, createTodo);
-        
+
         titleNodes = new VBox(10);
         titleNodes.setMaxWidth(360);
         titleNodes.setMinWidth(360);
         redrawTitlelist();
-        
+
         //todoScollbar.setContent(todoNodes);
         mainPane.setBottom(createForm);
         mainPane.setTop(menuPane);
-        
-       /* createTodo.setOnAction(e->{
+
+        /* createTodo.setOnAction(e->{
             todoService.createTodo(newTodoInput.getText());
             newTodoInput.setText("");       
             redrawTodolist();
         });
-        */
+         */
         // seutp primary stage
-        
         primaryStage.setTitle("Teoskanta");
         primaryStage.setScene(loginScene);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e->{
+        primaryStage.setOnCloseRequest(e -> {
             System.out.println("closing");
             //System.out.println(todoService.getLoggedUser());
             //if (todoService.getLoggedUser()!=null) {
-             //   e.consume();   
-           // }
-            
+            //   e.consume();   
+            // }
+
         });
     }
 

@@ -11,8 +11,9 @@ Teoskanta is a Java program that can be used to list and sort different artistic
 
 ### Suoritus
 
-Ohjelma suoritetaan komennolla
+Ohjelma suoritetaan komennoilla
 ```
+cd Teoskanta
 mvn compile exec:java -Dexec.mainClass=teoskanta.Main
 ```
 

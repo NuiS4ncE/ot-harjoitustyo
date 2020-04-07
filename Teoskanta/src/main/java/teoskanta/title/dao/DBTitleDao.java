@@ -22,7 +22,6 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     private void startConn() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         stat = connection.createStatement();
-        stmt.close();
     }
 
     private void closeConn() throws SQLException {

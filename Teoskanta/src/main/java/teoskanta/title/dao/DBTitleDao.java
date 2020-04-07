@@ -15,6 +15,22 @@ import teoskanta.domain.Title;
 
 public class DBTitleDao implements TitleDao<Title, Integer> {
 
+    private Connection connection;
+    private PreparedStatement stmt;
+    private Statement stat;
+
+    private void startConn() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+        stat = connection.createStatement();
+        stmt.close();
+    }
+
+    private void closeConn() throws SQLException {
+        stat.close();
+        stmt.close();
+        connection.close();
+    }
+
     public void checkDatabaseFileForTitles() throws Exception {
         // check if database file exists
         String titleTable = "CREATE TABLE IF NOT EXISTS Titles ("
@@ -23,32 +39,21 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
                 + "`author` TEXT,"
                 + "`year` TEXT,"
                 + "`userid` INTEGER);";
-        String db = "jdbc:sqlite:database.db";
-        String dbFile = "database.db";
-        Statement stmt;
-        Connection conn = DriverManager.getConnection(db);
-        stmt = conn.createStatement();
-        stmt.executeUpdate(titleTable);
-        DatabaseMetaData meta = conn.getMetaData();
-        System.out.println("The driver name is " + meta.getDriverName());
+        startConn();
+        stat.executeUpdate(titleTable);
         System.out.println("A new database table for titles has been created.");
-        stmt.close();
-        conn.close();
+        closeConn();
     }
 
     public Boolean findTitle(String name, String author, String year, int userid) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT name, author, year, userid FROM Titles WHERE name = ? AND author = ? AND year = ? AND userid = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT name, author, year, userid FROM Titles WHERE name = ? AND author = ? AND year = ? AND userid = ?");
         stmt.setString(1, name);
         stmt.setString(2, author);
         stmt.setString(3, year);
         stmt.setInt(4, userid);
         ResultSet rs = stmt.executeQuery();
-
-        String rsName;
-        String rsAuthor;
-        String rsYear;
+        String rsName, rsAuthor, rsYear;
         int rsUserid;
         if (!rs.next()) {
             return null;
@@ -58,33 +63,25 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             rsYear = rs.getString("year");
             rsUserid = rs.getInt("userid");
         }
-        System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear + " " + rsUserid);
         if (rsName.equals(name) && rsAuthor.equals(author) && rsYear == year && rsUserid == userid) {
             stmt.close();
             rs.close();
             connection.close();
             return true;
         }
-
-        stmt.close();
         rs.close();
-        connection.close();
-
+        closeConn();
         return false;
     }
 
     public Boolean findTitle(String name, String author, String year) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE name = ? AND author = ? AND year = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE name = ? AND author = ? AND year = ?");
         stmt.setString(1, name);
         stmt.setString(2, author);
         stmt.setString(3, year);
         ResultSet rs = stmt.executeQuery();
-
-        String rsName;
-        String rsAuthor;
-        String rsYear;
+        String rsName, rsAuthor, rsYear;
         if (!rs.next()) {
             return null;
         } else {
@@ -99,42 +96,32 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             connection.close();
             return true;
         }
-
-        stmt.close();
         rs.close();
-        connection.close();
-
+        closeConn();
         return false;
     }
 
     @Override
     public void create(Title title) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Titles"
+        startConn();
+        stmt = connection.prepareStatement("INSERT INTO Titles"
                 + "(name, author, year, userid)"
                 + "VALUES (?,?,?,?)");
         stmt.setString(1, title.getName());
         stmt.setString(2, title.getAuthor());
         stmt.setString(3, title.getYear());
         stmt.setInt(4, title.getUserId());
-
         stmt.executeUpdate();
-        stmt.close();
-        connection.close();
-
+        closeConn();
     }
 
     @Override
     public Title read(Title title, Integer userid) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = connection.prepareStatement("SELECT id FROM Titles WHERE id = ? AND userid = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT id FROM Titles WHERE id = ? AND userid = ?");
         stmt.setInt(1, title.getId());
         stmt.setInt(2, userid);
         ResultSet rs = stmt.executeQuery();
-
         int rsId;
         int rsUserid;
         if (!rs.next()) {
@@ -143,17 +130,14 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             rsId = rs.getInt("id");
             rsUserid = rs.getInt("userid");
         }
-
         if (rsId == title.getId() && rsUserid == userid) {
             stmt.close();
             rs.close();
             connection.close();
             return title;
         }
-
-        stmt.close();
         rs.close();
-        connection.close();
+        closeConn();
         return null;
     }
 
@@ -164,32 +148,26 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
 
     @Override
     public void delete(Title title, Integer id) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("DELETE * FROM Titles"
+        startConn();
+        stmt = connection.prepareStatement("DELETE * FROM Titles"
                 + "WHERE id = ? AND userid = ?");
         stmt.setInt(1, id);
         stmt.setInt(2, title.getUserId());
-
         stmt.executeUpdate();
-        stmt.close();
-        connection.close();
+        closeConn();
     }
 
     @Override
     public List<Title> list(Integer userid) throws SQLException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        startConn();
         List<Title> titleList = new ArrayList<>();
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ?");
+        stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ?");
         stmt.setInt(1, userid);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             titleList.add(new Title(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
         }
-        stmt.close();
-        connection.close();
+        closeConn();
         return titleList;
     }
 

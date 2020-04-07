@@ -3,7 +3,7 @@ package teoskanta.domain;
 import teoskanta.user.dao.DBUserDao;
 
 public class Title {
-    
+
     private int id;
     private int userid;
     private String year;
@@ -19,7 +19,7 @@ public class Title {
         this.author = author;
         this.year = year;
     }
-    
+
     public Title(int id, String name, String author, String year, int userid) {
         this.id = id;
         this.name = name;
@@ -39,13 +39,13 @@ public class Title {
 
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
-    } 
+    }
 
     public String getName() {
         return this.name;

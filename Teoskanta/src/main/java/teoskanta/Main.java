@@ -8,8 +8,8 @@ package teoskanta;
 import teoskanta.ui.TeoskantaUi;
 
 public class Main {
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         TeoskantaUi.main(args);
     }
 }

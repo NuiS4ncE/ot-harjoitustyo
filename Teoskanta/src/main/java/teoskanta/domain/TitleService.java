@@ -14,7 +14,7 @@ public class TitleService {
     private DBUserDao userDao;
     private User user;
     private DBTitleDao dbTitleDao;
-    private UserService UserService;
+    private UserService userService;
     private Title title;
 
     public TitleService(DBTitleDao dbtitleDao) {
@@ -23,7 +23,7 @@ public class TitleService {
 
     public boolean createTitle(String name, String author, String year) {
         System.out.println(name + " " + author + " " + year);
-        title = new Title(name, author, year, 1);
+        title = new Title(name, author, year, userService.getUserId());
         try {
             dbTitleDao.create(title);
             if (dbTitleDao.findTitle(name, author, year)) {

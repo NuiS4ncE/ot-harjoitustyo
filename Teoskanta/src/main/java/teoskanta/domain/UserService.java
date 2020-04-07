@@ -62,12 +62,12 @@ public class UserService {
             System.out.println("Database check or creation for users failed: " + e);
         }
     }
-    
-    public int getUserId(){
+
+    public int getUserId() {
         int id = 0;
-        try{
-        id = userDao.getUserIdFromDatabase(loggedIn.getUsername(), loggedIn.getPassword());
-        } catch (Exception e){
+        try {
+            id = userDao.getUserIdFromDatabase(loggedIn.getUsername(), loggedIn.getPassword());
+        } catch (Exception e) {
             System.out.println("Having trouble getting userid: " + e);
             e.printStackTrace();
         }

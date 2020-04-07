@@ -19,6 +19,7 @@ public class TitleService {
 
     public TitleService(DBTitleDao dbtitleDao) {
         this.dbTitleDao = dbtitleDao;
+        user = new User();
     }
 
     public boolean createTitle(String name, String author, String year) {

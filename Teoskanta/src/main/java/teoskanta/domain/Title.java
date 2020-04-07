@@ -10,7 +10,6 @@ public class Title {
     private String name;
     private String genre;
     private String author;
-//private String subgenre; tarvitaanko?
     private DBUserDao userdao;
 
     public Title(String name, String author, String year, int userid) {
@@ -23,7 +22,6 @@ public class Title {
     public Title(int id, String name, String author, String year, int userid) {
         this.id = id;
         this.name = name;
-        //this.genre = genre;
         this.userid = userid;
         this.author = author;
         this.year = year;
@@ -32,7 +30,6 @@ public class Title {
     public Title(String name, String author, User user) {
         this.name = name;
         this.author = author;
-
     }
 
     public Title() {

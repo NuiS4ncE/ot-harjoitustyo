@@ -22,8 +22,8 @@ public class TitleService {
     }
 
     public boolean createTitle(String name, String author, String year) {
-        System.out.println(name + " " + author + " " + year);
-        title = new Title(name, author, year, 1);
+        System.out.println(name + " " + author + " " + year + " " + user.getId());
+        title = new Title(name, author, year, user.getId());
         try {
             dbTitleDao.create(title);
             if (dbTitleDao.findTitle(name, author, year)) {

@@ -35,9 +35,9 @@ public class DBUserDao implements UserDao<User, Integer> {
         int id;
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
-        stmt.setString(2, username);
-        stmt.setString(3, password);
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");
+        stmt.setString(1, username);
+        stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
 
         if (!rs.next()) {

@@ -30,19 +30,20 @@ public class UserService {
     public boolean login(String username, String password) {
         System.out.println(username + " " + password);
         System.out.println("Now we're in userService-method");
+        int id = 0;
         try {
             if (userDao.findUser(username, password)) {
+                id = userDao.getUserIdFromDatabase(username, password);
+                System.out.println("this is the id: " + id);
+                loggedIn = new User(id, username, password);
                 return true;
             } else {
                 return false;
             }
         } catch (Exception e) {
             System.out.println("Login doesn't work: " + e);
+            e.printStackTrace();
         }
-        //if(user == null) {
-
-        //}
-        loggedIn = new User(username, password);
         return false;
     }
 

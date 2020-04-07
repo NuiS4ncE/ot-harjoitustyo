@@ -3,7 +3,11 @@ package teoskanta.ui;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,6 +23,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import teoskanta.domain.TitleService;
 import teoskanta.domain.UserService;
 import teoskanta.user.dao.DBUserDao;
@@ -66,8 +71,8 @@ public class TeoskantaUi extends Application {
         return box;
     }
 
-    private void createUser(Label loginMessage, Stage primaryStage) {
-
+    private void createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) {
+        loginErrorMessage.setText("");
         // create new user scene
         VBox createUserPane = new VBox(10);
 
@@ -96,7 +101,7 @@ public class TeoskantaUi extends Application {
             String password = newPasswordInput.getText();
 
             if (username.length() == 2 || password.length() < 2) {
-                userCreationMessage.setText("username or name too short");
+                userCreationMessage.setText("username or password too short");
                 userCreationMessage.setTextFill(Color.RED);
             } else if (UserService.newUser(username, password)) {
                 userCreationMessage.setText("");
@@ -138,14 +143,15 @@ public class TeoskantaUi extends Application {
 
         inputPane.getChildren().addAll(loginLabel, usernameInput, loginLabel2, passwordInput);
         Label loginMessage = new Label();
+        Label loginErrorMessage = new Label();
 
         Button loginButton = new Button("login");
         Button createButton = new Button("create new user");
+        Timer timer = new Timer();
+
         loginButton.setOnAction(e -> {
             String username = usernameInput.getText();
-            System.out.println(username);
             String password = passwordInput.getText();
-            System.out.println(password);
             //menuLabel.setText(username + " logged in");
             if (UserService.login(username, password)) {
                 loginMessage.setText("");
@@ -154,6 +160,14 @@ public class TeoskantaUi extends Application {
                 usernameInput.setText("");
                 passwordInput.setText("");
                 TitleService.checkDatabase();
+            } else {
+                loginErrorMessage.setText("username or password doesn't exist");
+                loginErrorMessage.setTextFill(Color.RED);
+                Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
+                    loginErrorMessage.setText("");
+                }));
+                //fiveSecondsWonder.setCycleCount(1);
+                fiveSecondsWonder.play();
             }
         });
 
@@ -162,16 +176,16 @@ public class TeoskantaUi extends Application {
             primaryStage.setScene(newUserScene);
         });
 
-        loginPane.getChildren().addAll(loginMessage, inputPane, loginButton, createButton);
+        loginPane.getChildren().addAll(loginErrorMessage, loginMessage, inputPane, loginButton, createButton);
 
         loginScene = new Scene(loginPane, 600, 250);
 
-        createUser(loginMessage, primaryStage);
+        createUser(loginMessage, primaryStage, loginErrorMessage);
 
         // main scene
         ScrollPane titleScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(titleScrollbar);
-        titleScene = new Scene(mainPane, 300, 250);
+        titleScene = new Scene(mainPane, 600, 600);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
@@ -209,20 +223,22 @@ public class TeoskantaUi extends Application {
             redrawTitlelist();
         });
 
-        // seutp primary stage
+        // setup primary stage
         primaryStage.setTitle("Teoskanta");
         primaryStage.setScene(loginScene);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> {
+        closeRequest(primaryStage);
+    }
+    
+    public void closeRequest(Stage stage){
+        stage.setOnCloseRequest(e -> {
             System.out.println("closing");
-            //System.out.println(todoService.getLoggedUser());
-            //if (todoService.getLoggedUser()!=null) {
-            //   e.consume();   
-            // }
-
+            System.out.println(UserService.getLoggedInUser());
+            UserService.logout();
+            System.out.println(UserService.getLoggedInUser());
         });
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }

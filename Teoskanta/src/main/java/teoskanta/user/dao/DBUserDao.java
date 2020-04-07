@@ -7,35 +7,43 @@ import java.sql.*;
 
 public class DBUserDao implements UserDao<User, Integer> {
 
-    public void checkDatabaseFile() throws Exception {
+    private Connection connection;
+    private Statement stat;
+    private PreparedStatement stmt;
+
+    private void startConn() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+        stat = connection.createStatement();
+    }
+
+    private void closeConn() throws SQLException {
+        stat.close();
+        stmt.close();
+        connection.close();
+    }
+
+    public void checkDatabaseFile() {
         // check if database file exists
-        String userTable = "CREATE TABLE Users ("
+        String userTable = "CREATE TABLE IF NOT EXISTS Users ("
                 + "`id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "`username` TEXT NOT NULL,"
                 + "`password` TEXT NOT NULL);";
-        String db = "jdbc:sqlite:database.db";
-        String dbFile = "database.db";
-        File file = new File(dbFile);
-        Statement stmt;
-        if (file.exists()) {
-            System.out.println("User database already exists. All is well!");
-        } else {
-            Connection conn = DriverManager.getConnection(db);
-            stmt = conn.createStatement();
-            stmt.executeUpdate(userTable);
-            DatabaseMetaData meta = conn.getMetaData();
-            System.out.println("The driver name is " + meta.getDriverName());
-            System.out.println("A new database has been created.");
-            stmt.close();
-            conn.close();
+        //String db = "jdbc:sqlite:database.db";            
+        try {
+            startConn();
+            stat = connection.createStatement();
+            stat.executeUpdate(userTable);
+            System.out.println("A new database has been created or checked.");
+            closeConn();
+        } catch (Exception e) {
+            System.out.println("Databasecheck producer an error: " + e);
         }
     }
 
     public int getUserIdFromDatabase(String username, String password) throws SQLException {
         int id;
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");
         stmt.setString(1, username);
         stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
@@ -46,33 +54,28 @@ public class DBUserDao implements UserDao<User, Integer> {
 
         id = rs.getInt("id");
 
-        stmt.close();
         rs.close();
-        connection.close();
-
+        closeConn();
         return id;
     }
 
     @Override
     public void create(User user) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Users"
+        startConn();
+        stmt = connection.prepareStatement("INSERT INTO Users"
                 + "(username, password)"
                 + "VALUES (?,?)");
         stmt.setString(1, user.getUsername());
         stmt.setString(2, user.getPassword());
 
         stmt.executeUpdate();
-        stmt.close();
-        connection.close();
+        closeConn();
     }
 
     @Override
     public User read(Integer key) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
         stmt.setInt(1, key);
         ResultSet rs = stmt.executeQuery();
 
@@ -82,42 +85,36 @@ public class DBUserDao implements UserDao<User, Integer> {
 
         User u = new User(rs.getString("username"), rs.getString("password"));
 
-        stmt.close();
         rs.close();
-        connection.close();
+        closeConn();
 
         return u;
     }
 
     public Boolean findUser(String username, String password) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT username, password FROM Users WHERE username = ? AND password = ?");
+        startConn();
+        stmt = connection.prepareStatement("SELECT username, password FROM Users WHERE username = ? AND password = ?");
         stmt.setString(1, username);
         stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
 
-        String rsUserName;
-        String rsPassword;
+        String rsUserName, rsPassword;
         if (!rs.next()) {
-            return null;
+            return false;
         } else {
             rsUserName = rs.getString("username");
             rsPassword = rs.getString("password");
         }
         System.out.println(rsUserName + " SQL " + rsPassword);
         if (rsUserName.equals(username) && rsPassword.equals(password)) {
-            stmt.close();
             rs.close();
-            connection.close();
+            closeConn();
             return true;
+        } else {
+            rs.close();
+            closeConn();
+            return false;
         }
-
-        stmt.close();
-        rs.close();
-        connection.close();
-
-        return false;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class UserService {
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Login doesn't work: " + e);
+            System.out.println("Login doesn't work or username not found: " + e);
             e.printStackTrace();
         }
         return false;
@@ -54,6 +54,10 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+    public User getLoggedInUser() {
+        return loggedIn;
     }
 
     public void checkDatabase() {

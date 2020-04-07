@@ -5,4 +5,5 @@
 | 22.3. | 3 | vaatimusmäärittelyn teko ja README:n päivittäminen |
 | 30.3. | 4 | kirjautumisen luominen ja SQL:n kanssa säätäminen |
 | 31.3. | 2 | käyttäjän luonti ja tietokantatesti tehty |
-| yht | 9 | |
+| 7.4. | 8 | teoksen luonti ja tietokannan määrittely jatkunut |
+| yht | 17 | |

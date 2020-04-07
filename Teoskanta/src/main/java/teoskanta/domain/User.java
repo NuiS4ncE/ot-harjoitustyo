@@ -4,8 +4,10 @@ package teoskanta.domain;
 public class User {
     private String username;
     private String password;
+    private int id;
     
     public User(String username, String password){
+        //this.id = id;
         this.password = password;
         this.username = username;
     }
@@ -16,6 +18,14 @@ public class User {
     
     public String getUsername(){
         return username;
+    }
+    
+    /*public void setId(int id){
+        this.id = id;
+    }*/
+    
+    public int getId(){
+        return this.id;
     }
     
     @Override

@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import teoskanta.domain.UserService;
-import teoskanta.dao.UserDao;
+import teoskanta.user.dao.DBUserDao;
 
 public class TeoskantaUi extends Application {
 
@@ -29,7 +29,7 @@ public class TeoskantaUi extends Application {
     private UserService UserService;
     private Scene titleScene;
     private VBox titleNodes;
-    private UserDao userDao;
+    private DBUserDao userDao;
 
     private void redrawTitlelist() {
         titleNodes.getChildren().clear();
@@ -89,7 +89,7 @@ public class TeoskantaUi extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        userDao = new UserDao();
+        userDao = new DBUserDao();
         UserService = new UserService(userDao);
 
         // check database exists

@@ -1,14 +1,14 @@
 package teoskanta.domain;
 
 import java.util.*;
-import teoskanta.dao.UserDao;
+import teoskanta.user.dao.DBUserDao;
 
 public class UserService {
 
-    private UserDao userDao;
+    private DBUserDao userDao;
     private User loggedIn;
 
-    public UserService(UserDao userDao) {
+    public UserService(DBUserDao userDao) {
         this.userDao = userDao;
     }
     

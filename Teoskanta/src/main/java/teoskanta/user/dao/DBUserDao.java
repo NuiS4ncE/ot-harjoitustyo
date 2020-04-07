@@ -1,13 +1,13 @@
-package teoskanta.dao;
+package teoskanta.user.dao;
 
 import java.io.File;
 import teoskanta.domain.User;
 import java.util.*;
 import java.sql.*;
 
-public class UserDao implements Dao<User, Integer> {
-    
-        public void checkDatabaseFile() throws Exception{
+public class DBUserDao implements UserDao<User, Integer> {
+
+    public void checkDatabaseFile() throws Exception {
         // check if database file exists
         String userTable = "CREATE TABLE Users ("
                 + "`id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -15,20 +15,42 @@ public class UserDao implements Dao<User, Integer> {
                 + "`password` TEXT NOT NULL);";
         String db = "jdbc:sqlite:database.db";
         String dbFile = "database.db";
-        File file = new File (dbFile);
+        File file = new File(dbFile);
         Statement stmt;
-        if(file.exists()){
-            System.out.println("Database already exists. All is well!");
-        }else {
-             Connection conn = DriverManager.getConnection(db);
-             stmt = conn.createStatement();
-             stmt.executeUpdate(userTable);
-             DatabaseMetaData meta = conn.getMetaData();
-             System.out.println("The driver name is " + meta.getDriverName());
-             System.out.println("A new database has been created.");
-             stmt.close();
-             conn.close();
+        if (file.exists()) {
+            System.out.println("User database already exists. All is well!");
+        } else {
+            Connection conn = DriverManager.getConnection(db);
+            stmt = conn.createStatement();
+            stmt.executeUpdate(userTable);
+            DatabaseMetaData meta = conn.getMetaData();
+            System.out.println("The driver name is " + meta.getDriverName());
+            System.out.println("A new database has been created.");
+            stmt.close();
+            conn.close();
         }
+    }
+
+    public int getUserIdFromDatabase(String username, String password) throws SQLException {
+        int id;
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
+        stmt.setString(2, username);
+        stmt.setString(3, password);
+        ResultSet rs = stmt.executeQuery();
+
+        if (!rs.next()) {
+            return 0;
+        }
+
+        id = rs.getInt("id");
+
+        stmt.close();
+        rs.close();
+        connection.close();
+
+        return id;
     }
 
     @Override
@@ -84,10 +106,13 @@ public class UserDao implements Dao<User, Integer> {
             rsPassword = rs.getString("password");
         }
         System.out.println(rsUserName + " SQL " + rsPassword);
-        if(rsUserName.equals(username) && rsPassword.equals(password)){
+        if (rsUserName.equals(username) && rsPassword.equals(password)) {
+            stmt.close();
+            rs.close();
+            connection.close();
             return true;
         }
-        //User u = new User(rs.getString("username"), rs.getString("password"));
+
         stmt.close();
         rs.close();
         connection.close();
@@ -102,12 +127,12 @@ public class UserDao implements Dao<User, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(User object, Integer key) throws SQLException {
         // ei toteutettu
     }
 
     @Override
-    public List<User> list() throws SQLException {
+    public List<User> list(Integer key) throws SQLException {
         // ei toteutettu
         return null;
     }

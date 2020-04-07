@@ -1,34 +1,60 @@
 package teoskanta.domain;
 
+import teoskanta.user.dao.DBUserDao;
 
 public class Title {
 
-private int id;
-private String name;
-private String genre;
+    private int userid;
+    private int year;
+    private String name;
+    private String genre;
+    private String author;
 //private String subgenre; tarvitaanko?
-private User user;
-    
-    public Title(int id, String name, String genre, User user) {
-        this.id = id;
+    private DBUserDao userdao;
+
+    public Title(String name, String author, int year, int userid) {
+        //this.id = id;
         this.name = name;
-        this.genre = genre;
-        this.user = user;
+        //this.genre = genre;
+        this.userid = userid;
+        this.author = author;
+        this.year = year;
     }
-    
-    public void setId(int id){
+
+    public Title(String name, String author, User user) {
+        this.name = name;
+        this.author = author;
+
+    }
+
+    public Title() {
+
+    }
+
+    /* public void setId(int id){
         this.id = id;
     }
     
     public int getId(){
         return this.id;
-    }
-    
-    public String getName(){
+    } */
+    public String getName() {
         return this.name;
     }
-    
-    public String getGenre(){
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public String getGenre() {
         return this.genre;
+    }
+
+    public int getUserId() {
+        return this.userid;
     }
 }

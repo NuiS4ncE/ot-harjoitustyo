@@ -130,31 +130,35 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     }
 
     @Override
-    public Title read(Title title ,Integer key) throws SQLException {
+    public Title read(Title title, Integer userid) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        Title title;
+        
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         PreparedStatement stmt = connection.prepareStatement("SELECT id FROM Titles WHERE id = ? AND userid = ?");
-        stmt.setInt(1, key);
+        stmt.setInt(1, title.getId());
+        stmt.setInt(2, userid);
         ResultSet rs = stmt.executeQuery();
 
         int rsId;
+        int rsUserid;
         if (!rs.next()) {
             return null;
         } else {
             rsId = rs.getInt("id");
+            rsUserid = rs.getInt("userid");
         }
-        System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear);
-        if (rsName.equals(title.name) && rsAuthor.equals(title.author) && rsYear == year) {
+        
+        if (rsId == title.getId() && rsUserid == userid) {
             stmt.close();
             rs.close();
             connection.close();
             return title;
         }
-
+        
         stmt.close();
         rs.close();
         connection.close();
+        return null;
     }
 
     @Override
@@ -184,8 +188,10 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         List<Title> titleList = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-        Statement stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE id = ? AND userid = ?");
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Titles");
+        Statement stmt = connection.prepareStatement("SELECT * FROM Titles WHERE id = ? AND userid = ?");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Titles WHERE id = ? AND userid = ?");
+        
+        return titleList;
     }
 
 }

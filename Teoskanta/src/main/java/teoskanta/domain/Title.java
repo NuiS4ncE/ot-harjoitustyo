@@ -6,21 +6,21 @@ public class Title {
     
     private int id;
     private int userid;
-    private int year;
+    private String year;
     private String name;
     private String genre;
     private String author;
 //private String subgenre; tarvitaanko?
     private DBUserDao userdao;
 
-    public Title(String name, String author, int year, int userid) {
+    public Title(String name, String author, String year, int userid) {
         this.name = name;
         this.userid = userid;
         this.author = author;
         this.year = year;
     }
     
-    public Title(int id, String name, String author, int year, int userid) {
+    public Title(int id, String name, String author, String year, int userid) {
         this.id = id;
         this.name = name;
         //this.genre = genre;
@@ -55,7 +55,7 @@ public class Title {
         return this.author;
     }
 
-    public int getYear() {
+    public String getYear() {
         return this.year;
     }
 

@@ -17,49 +17,45 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
 
     public void checkDatabaseFileForTitles() throws Exception {
         // check if database file exists
-        String titleTable = "CREATE TABLE Titles ("
+        String titleTable = "CREATE TABLE IF NOT EXISTS Titles ("
                 + "`id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "`name` TEXT NOT NULL,"
-                + "`author` TEXT NOT NULL,"
-                + "`year` INTEGER);";
+                + "`name` TEXT,"
+                + "`author` TEXT,"
+                + "`year` TEXT,"
+                + "`userid` INTEGER);";
         String db = "jdbc:sqlite:database.db";
         String dbFile = "database.db";
-        File file = new File(dbFile);
         Statement stmt;
-        if (file.exists()) {
-            System.out.println("Title database already exists. All is well!");
-        } else {
-            Connection conn = DriverManager.getConnection(db);
-            stmt = conn.createStatement();
-            stmt.executeUpdate(titleTable);
-            DatabaseMetaData meta = conn.getMetaData();
-            System.out.println("The driver name is " + meta.getDriverName());
-            System.out.println("A new database table for titles has been created.");
-            stmt.close();
-            conn.close();
-        }
+        Connection conn = DriverManager.getConnection(db);
+        stmt = conn.createStatement();
+        stmt.executeUpdate(titleTable);
+        DatabaseMetaData meta = conn.getMetaData();
+        System.out.println("The driver name is " + meta.getDriverName());
+        System.out.println("A new database table for titles has been created.");
+        stmt.close();
+        conn.close();
     }
 
-    public Boolean findTitle(String name, String author, int year, int userid) throws SQLException {
+    public Boolean findTitle(String name, String author, String year, int userid) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 
         PreparedStatement stmt = connection.prepareStatement("SELECT name, author, year, userid FROM Titles WHERE name = ? AND author = ? AND year = ? AND userid = ?");
         stmt.setString(1, name);
         stmt.setString(2, author);
-        stmt.setInt(3, year);
+        stmt.setString(3, year);
         stmt.setInt(4, userid);
         ResultSet rs = stmt.executeQuery();
 
         String rsName;
         String rsAuthor;
-        int rsYear;
+        String rsYear;
         int rsUserid;
         if (!rs.next()) {
             return null;
         } else {
             rsName = rs.getString("name");
             rsAuthor = rs.getString("author");
-            rsYear = rs.getInt("year");
+            rsYear = rs.getString("year");
             rsUserid = rs.getInt("userid");
         }
         System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear + " " + rsUserid);
@@ -77,24 +73,24 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         return false;
     }
 
-    public Boolean findTitle(String name, String author, int year) throws SQLException {
+    public Boolean findTitle(String name, String author, String year) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
 
         PreparedStatement stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE name = ? AND author = ? AND year = ?");
         stmt.setString(1, name);
         stmt.setString(2, author);
-        stmt.setInt(3, year);
+        stmt.setString(3, year);
         ResultSet rs = stmt.executeQuery();
 
         String rsName;
         String rsAuthor;
-        int rsYear;
+        String rsYear;
         if (!rs.next()) {
             return null;
         } else {
             rsName = rs.getString("name");
             rsAuthor = rs.getString("author");
-            rsYear = rs.getInt("year");
+            rsYear = rs.getString("year");
         }
         System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear);
         if (rsName.equals(name) && rsAuthor.equals(author) && rsYear == year) {
@@ -120,7 +116,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
                 + "VALUES (?,?,?,?)");
         stmt.setString(1, title.getName());
         stmt.setString(2, title.getAuthor());
-        stmt.setInt(3, title.getYear());
+        stmt.setString(3, title.getYear());
         stmt.setInt(4, title.getUserId());
 
         stmt.executeUpdate();
@@ -132,7 +128,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     @Override
     public Title read(Title title, Integer userid) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         PreparedStatement stmt = connection.prepareStatement("SELECT id FROM Titles WHERE id = ? AND userid = ?");
         stmt.setInt(1, title.getId());
@@ -147,14 +143,14 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             rsId = rs.getInt("id");
             rsUserid = rs.getInt("userid");
         }
-        
+
         if (rsId == title.getId() && rsUserid == userid) {
             stmt.close();
             rs.close();
             connection.close();
             return title;
         }
-        
+
         stmt.close();
         rs.close();
         connection.close();
@@ -180,17 +176,20 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.close();
         connection.close();
     }
-    
-    
 
     @Override
     public List<Title> list(Integer userid) throws SQLException {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         List<Title> titleList = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-        Statement stmt = connection.prepareStatement("SELECT * FROM Titles WHERE id = ? AND userid = ?");
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Titles WHERE id = ? AND userid = ?");
-        
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ?");
+        stmt.setInt(1, userid);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            titleList.add(new Title(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
+        }
+        stmt.close();
+        connection.close();
         return titleList;
     }
 

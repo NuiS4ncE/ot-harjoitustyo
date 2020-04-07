@@ -2,6 +2,7 @@ package teoskanta.ui;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,8 +19,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import teoskanta.domain.TitleService;
 import teoskanta.domain.UserService;
 import teoskanta.user.dao.DBUserDao;
+import teoskanta.domain.Title;
+import teoskanta.title.dao.DBTitleDao;
 
 public class TeoskantaUi extends Application {
 
@@ -27,14 +31,39 @@ public class TeoskantaUi extends Application {
     private Label menuLabel = new Label();
     private Scene loginScene;
     private UserService UserService;
+    private TitleService TitleService;
     private Scene titleScene;
     private VBox titleNodes;
     private DBUserDao userDao;
+    private DBTitleDao titleDao;
 
     private void redrawTitlelist() {
-        titleNodes.getChildren().clear();
+        /*    titleNodes.getChildren().clear();
+        
+        List<Title> listedTitles = TitleService.getList();
+        listedTitles.forEach(title->{
+            titleNodes.getChildren().add(createTitleNode(title));
+        });    
+        //to be continued.. or edited.. or deleted..*/
+    }
 
-        //to be continued.. or edited.. or deleted..
+    public Node createTitleNode(Title title) {
+        HBox box = new HBox(10);
+        Label label = new Label(title.getName());
+        Label label2 = new Label(title.getAuthor());
+        label.setMinHeight(28);
+        //Button button = new Button("done");
+        //button.setOnAction(e->{
+        //  titleService.markDone(title.getId());
+        // redrawTodolist();
+        //});
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        box.setPadding(new Insets(0, 5, 0, 5));
+
+        box.getChildren().addAll(label, spacer, label2);
+        return box;
     }
 
     private void createUser(Label loginMessage, Stage primaryStage) {
@@ -46,7 +75,7 @@ public class TeoskantaUi extends Application {
         createUsernamePane.setPadding(new Insets(10));
         TextField createUsernameInput = new TextField();
         Label createUsernameLabel = new Label("username");
-        Label createPasswordLabel = new Label("password");
+        //Label createPasswordLabel = new Label("password");
         createUsernameLabel.setPrefWidth(100);
         createUsernamePane.getChildren().addAll(createUsernameLabel, createUsernameInput);
 
@@ -91,14 +120,12 @@ public class TeoskantaUi extends Application {
     public void start(Stage primaryStage) {
         userDao = new DBUserDao();
         UserService = new UserService(userDao);
+        titleDao = new DBTitleDao();
+        TitleService = new TitleService(titleDao);
 
         // check database exists
-        try {
-            userDao.checkDatabaseFile();
-        } catch (Exception e) {
-            System.out.println("Database creation failed: " + e);
-        }
-
+        UserService.checkDatabase();
+        TitleService.checkDatabase();
         VBox loginPane = new VBox(10);
         HBox inputPane = new HBox(10);
         loginPane.setPadding(new Insets(10));
@@ -126,6 +153,7 @@ public class TeoskantaUi extends Application {
                 primaryStage.setScene(titleScene);
                 usernameInput.setText("");
                 passwordInput.setText("");
+                TitleService.checkDatabase();
             }
         });
 
@@ -141,8 +169,8 @@ public class TeoskantaUi extends Application {
         createUser(loginMessage, primaryStage);
 
         // main scene
-        ScrollPane todoScollbar = new ScrollPane();
-        BorderPane mainPane = new BorderPane(todoScollbar);
+        ScrollPane titleScrollbar = new ScrollPane();
+        BorderPane mainPane = new BorderPane(titleScrollbar);
         titleScene = new Scene(mainPane, 300, 250);
 
         HBox menuPane = new HBox(10);
@@ -150,33 +178,37 @@ public class TeoskantaUi extends Application {
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
         Button logoutButton = new Button("logout");
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
-        /* logoutButton.setOnAction(e->{
-            todoService.logout();
+        logoutButton.setOnAction(e -> {
+            UserService.logout();
             primaryStage.setScene(loginScene);
-        });        
-         */
+        });
+
         HBox createForm = new HBox(10);
-        Button createTodo = new Button("create");
+        Button createTitle = new Button("create");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        TextField newTodoInput = new TextField();
-        createForm.getChildren().addAll(newTodoInput, spacer, createTodo);
+        TextField newTitleInput = new TextField();
+        TextField newAuthorInput = new TextField();
+        TextField newYearInput = new TextField();
+        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle);
 
         titleNodes = new VBox(10);
         titleNodes.setMaxWidth(360);
         titleNodes.setMinWidth(360);
         redrawTitlelist();
 
-        //todoScollbar.setContent(todoNodes);
+        titleScrollbar.setContent(titleNodes);
         mainPane.setBottom(createForm);
         mainPane.setTop(menuPane);
 
-        /* createTodo.setOnAction(e->{
-            todoService.createTodo(newTodoInput.getText());
-            newTodoInput.setText("");       
-            redrawTodolist();
+        createTitle.setOnAction(e -> {
+            TitleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
+            newTitleInput.setText("");
+            newAuthorInput.setText("");
+            newYearInput.setText("");
+            redrawTitlelist();
         });
-         */
+
         // seutp primary stage
         primaryStage.setTitle("Teoskanta");
         primaryStage.setScene(loginScene);

@@ -2,7 +2,7 @@ package teoskanta.domain;
 
 import teoskanta.user.dao.DBUserDao;
 
-public class Title {
+public class Title implements Comparable<Title> {
 
     private int id;
     private int userid;
@@ -30,6 +30,7 @@ public class Title {
     public Title(String name, String author, User user) {
         this.name = name;
         this.author = author;
+        this.userid = user.getId();
     }
 
     public Title() {
@@ -62,5 +63,10 @@ public class Title {
 
     public int getUserId() {
         return this.userid;
+    }
+
+    @Override
+    public int compareTo(Title title) {
+        return this.name.compareTo(title.getAuthor());
     }
 }

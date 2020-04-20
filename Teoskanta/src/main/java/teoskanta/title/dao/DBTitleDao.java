@@ -26,7 +26,6 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
 
     private void closeConn() throws SQLException {
         stat.close();
-        stmt.close();
         connection.close();
     }
 
@@ -41,7 +40,8 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         startConn();
         stat.executeUpdate(titleTable);
         System.out.println("A new database table for titles has been created.");
-        closeConn();
+        stat.close();
+        connection.close();
     }
 
     public Boolean findTitle(String name, String author, String year, int userid) throws SQLException {
@@ -62,15 +62,18 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             rsYear = rs.getString("year");
             rsUserid = rs.getInt("userid");
         }
-        if (rsName.equals(name) && rsAuthor.equals(author) && rsYear == year && rsUserid == userid) {
-            stmt.close();
+        System.out.println(rsName + " " + rsAuthor + " " + rsYear + " " + rsUserid);
+        if (rsName.equals(name) && rsAuthor.equals(author) && rsYear.equals(year) && rsUserid == userid) {
             rs.close();
-            connection.close();
+            closeConn();
             return true;
+        } else {
+            System.out.println("Tämä on FALSE!");
+            rs.close();
+            stmt.close();
+            closeConn();
+            return false;
         }
-        rs.close();
-        closeConn();
-        return false;
     }
 
     public Boolean findTitle(String name, String author, String year) throws SQLException {
@@ -90,14 +93,15 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         }
         System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear);
         if (rsName.equals(name) && rsAuthor.equals(author) && rsYear == year) {
-            stmt.close();
             rs.close();
-            connection.close();
+            closeConn();
             return true;
+        } else {
+            rs.close();
+            stmt.close();
+            closeConn();
+            return false;
         }
-        rs.close();
-        closeConn();
-        return false;
     }
 
     @Override
@@ -130,12 +134,12 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             rsUserid = rs.getInt("userid");
         }
         if (rsId == title.getId() && rsUserid == userid) {
-            stmt.close();
             rs.close();
-            connection.close();
+            closeConn();
             return title;
         }
         rs.close();
+        stmt.close();
         closeConn();
         return null;
     }
@@ -153,6 +157,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.setInt(1, id);
         stmt.setInt(2, title.getUserId());
         stmt.executeUpdate();
+        stmt.close();
         closeConn();
     }
 
@@ -166,6 +171,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         while (rs.next()) {
             titleList.add(new Title(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
         }
+        stmt.close();
         closeConn();
         return titleList;
     }

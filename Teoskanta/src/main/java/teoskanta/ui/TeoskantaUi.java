@@ -229,16 +229,18 @@ public class TeoskantaUi extends Application {
         primaryStage.show();
         closeRequest(primaryStage);
     }
-    
-    public void closeRequest(Stage stage){
+
+    public void closeRequest(Stage stage) {
         stage.setOnCloseRequest(e -> {
             System.out.println("closing");
             System.out.println(UserService.getLoggedInUser());
-            UserService.logout();
+            if (UserService.getLoggedInUser() != null) {
+                UserService.logout();
+            }
             System.out.println(UserService.getLoggedInUser());
         });
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }

@@ -29,7 +29,7 @@ public class UserService {
 
     public boolean login(String username, String password) {
         System.out.println(username + " " + password);
-        System.out.println("Now we're in userService-method");
+        System.out.println("Now we're in userService-class");
         int id = 0;
         try {
             if (userDao.findUser(username, password)) {

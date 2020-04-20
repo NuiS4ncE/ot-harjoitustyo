@@ -56,15 +56,6 @@ public class TitleService {
         return false;
     }
 
-    public List<Title> getList() {
-        List<Title> titleList = new ArrayList<>();
-        try {
-            titleList = dbTitleDao.list(user.getId());
-        } catch (Exception e) {
-            System.out.println("Title list retrieval had problems: " + e);
-        }
-        return titleList;
-    }
 
     public void checkDatabase() {
         try {

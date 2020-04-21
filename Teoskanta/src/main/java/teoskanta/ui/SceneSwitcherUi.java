@@ -8,12 +8,13 @@ public class SceneSwitcherUi {
     private Stage primaryStage;
     private LoginViewUi loginViewUi;
     private MainViewUi mainViewUi;
-    private CreateUserViewUi createUserViewUi;
-
+    private TableViewUi tableViewUi;
+    
     public SceneSwitcherUi(Stage primStage) {
         this.primaryStage = primStage;
         loginViewUi = new LoginViewUi(primaryStage);
         mainViewUi = new MainViewUi(primaryStage);
+        tableViewUi = new TableViewUi(primaryStage);
     }
 
     public SceneSwitcherUi() {
@@ -26,6 +27,10 @@ public class SceneSwitcherUi {
 
     public Scene SwitchToMain() {
         return mainViewUi.buildScene();
+    }
+    
+    public Scene SwitchToTableView() {
+        return tableViewUi.buildScene();
     }
 
 }

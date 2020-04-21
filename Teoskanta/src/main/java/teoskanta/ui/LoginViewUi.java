@@ -68,7 +68,7 @@ public class LoginViewUi {
             if (UserService.login(username, password)) {
                 System.out.println(username + " " + password + " " + UserService.login(username, password));
                 loginMessage.setText("");
-                primaryStage.setScene(sceneSwitcherUi.SwitchToMain());
+                primaryStage.setScene(sceneSwitcherUi.SwitchToTableView());
                 usernameInput.setText("");
                 passwordInput.setText("");
                 TitleService.checkDatabase();
@@ -78,7 +78,6 @@ public class LoginViewUi {
                 Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
                     loginErrorMessage.setText("");
                 }));
-                //fiveSecondsWonder.setCycleCount(1);
                 fiveSecondsWonder.play();
             }
         });

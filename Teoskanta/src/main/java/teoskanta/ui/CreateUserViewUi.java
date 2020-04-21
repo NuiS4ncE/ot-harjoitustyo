@@ -1,5 +1,6 @@
 package teoskanta.ui;
 
+import java.sql.SQLException;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,7 +32,7 @@ public class CreateUserViewUi {
 
     }
 
-    public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) {
+    public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) throws SQLException{
         userDao = new DBUserDao();
         userService = new UserService(userDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);

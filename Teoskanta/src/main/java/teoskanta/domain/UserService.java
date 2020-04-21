@@ -14,7 +14,7 @@ public class UserService {
         loggedIn = new User();
     }
 
-    public boolean newUser(String username, String password) throws SQLException{
+    public boolean newUser(String username, String password) {
         System.out.println(username + " " + password);
         try {
             dbUserDao.create(new User(username, password));
@@ -24,12 +24,12 @@ public class UserService {
                 return false;
             }
         } catch (Exception e) {
-           System.out.println("User creation had problems: " + e);
+            System.out.println("User creation had problems: " + e);
         }
         return false;
     }
 
-    public boolean login(String username, String password) throws SQLException{
+    public boolean login(String username, String password) {
         System.out.println(username + " " + password);
         System.out.println("Now we're in userService-class");
         int id;
@@ -46,16 +46,16 @@ public class UserService {
             }
         } catch (Exception e) {
             System.out.println("Login doesn't work or username not found: " + e);
-          e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }
 
     public boolean logout() {
-        loggedIn = null;        
+        loggedIn = null;
         if (loggedIn == null) {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -63,7 +63,7 @@ public class UserService {
         return loggedIn;
     }
 
-    public void checkDatabase() throws SQLException{
+    public void checkDatabase() {
         try {
             dbUserDao.checkDBFile();
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class UserService {
     }
 
     public int getUserId() {
-        int id = 0;        
+        int id = 0;
         System.out.println("This is the loggedin id: " + loggedIn.getId());
         id = loggedIn.getId();
         return id;

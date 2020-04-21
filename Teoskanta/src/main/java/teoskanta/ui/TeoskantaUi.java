@@ -43,7 +43,7 @@ public class TeoskantaUi extends Application {
     private SceneSwitcherUi sceneSwitcherUi;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         userDao = new DBUserDao();
         userService = new UserService(userDao);
         titleDao = new DBTitleDao();

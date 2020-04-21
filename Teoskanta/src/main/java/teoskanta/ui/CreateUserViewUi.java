@@ -25,12 +25,16 @@ public class CreateUserViewUi {
     private VBox titleNodes;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
+    private SceneSwitcherUi sceneSwitcherUi;
 
     public CreateUserViewUi() {
 
     }
 
     public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) {
+        userDao = new DBUserDao();
+        UserService = new UserService(userDao);
+        sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         loginErrorMessage.setText("");
         // create new user scene
         VBox createUserPane = new VBox(10);
@@ -39,7 +43,6 @@ public class CreateUserViewUi {
         createUsernamePane.setPadding(new Insets(10));
         TextField createUsernameInput = new TextField();
         Label createUsernameLabel = new Label("username");
-        //Label createPasswordLabel = new Label("password");
         createUsernameLabel.setPrefWidth(100);
         createUsernamePane.getChildren().addAll(createUsernameLabel, createUsernameInput);
 
@@ -66,7 +69,7 @@ public class CreateUserViewUi {
                 userCreationMessage.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(loginScene);
+                primaryStage.setScene(sceneSwitcherUi.SwitchToLogin());
             } else {
                 userCreationMessage.setText("username has to be unique");
                 userCreationMessage.setTextFill(Color.RED);

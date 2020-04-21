@@ -6,6 +6,7 @@ import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -37,31 +38,9 @@ public class TeoskantaUi extends Application {
     private Scene loginScene;
     private UserService UserService;
     private TitleService TitleService;
-    private Scene titleScene;
-    private VBox titleNodes;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
-    private MainViewUi mainViewUi;
-    private LoginViewUi loginViewUi;
-
-    public Node createTitleNode(Title title) {
-        HBox box = new HBox(10);
-        Label label = new Label(title.getName());
-        Label label2 = new Label(title.getAuthor());
-        label.setMinHeight(28);
-        //Button button = new Button("done");
-        //button.setOnAction(e->{
-        //  titleService.markDone(title.getId());
-        // redrawTodolist();
-        //});
-
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        box.setPadding(new Insets(0, 5, 0, 5));
-
-        box.getChildren().addAll(label, spacer, label2);
-        return box;
-    }
+    private SceneSwitcherUi sceneSwitcherUi;
 
     @Override
     public void start(Stage primaryStage) {
@@ -69,18 +48,16 @@ public class TeoskantaUi extends Application {
         UserService = new UserService(userDao);
         titleDao = new DBTitleDao();
         TitleService = new TitleService(titleDao);
-        loginViewUi = new LoginViewUi(primaryStage);
-        mainViewUi = new MainViewUi(primaryStage);
+        sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
 
         // check database exists
         UserService.checkDatabase();
         TitleService.checkDatabase();
 
         // login scene
-        this.loginScene = loginViewUi.buildScene();
+        this.loginScene = sceneSwitcherUi.SwitchToLogin();
 
         // main scene
-        mainViewUi.buildScene();
 
         // setup primary stage
         primaryStage.setTitle("Teoskanta");
@@ -97,6 +74,7 @@ public class TeoskantaUi extends Application {
                 UserService.logout();
             }
             System.out.println(UserService.getLoggedInUser());
+            Platform.exit();
         });
     }
 

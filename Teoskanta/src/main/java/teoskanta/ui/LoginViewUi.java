@@ -1,6 +1,5 @@
 package teoskanta.ui;
 
-import java.util.Timer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -22,7 +21,6 @@ import teoskanta.user.dao.DBUserDao;
 
 public class LoginViewUi {
 
-    private Scene newUserScene;
     private Label menuLabel = new Label();
     private Scene loginScene;
     private UserService UserService;
@@ -33,12 +31,18 @@ public class LoginViewUi {
     private DBTitleDao titleDao;
     private Stage primaryStage;
     private CreateUserViewUi createUserView;
+    private SceneSwitcherUi sceneSwitcherUi;
 
     public LoginViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
 
-    public Scene buildScene() {
+    public Scene buildScene() { 
+        userDao = new DBUserDao();
+        titleDao = new DBTitleDao();
+        TitleService = new TitleService(titleDao);
+        UserService = new UserService(userDao);
+        sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         createUserView = new CreateUserViewUi();
         VBox loginPane = new VBox(10);
         HBox inputPane = new HBox(10);
@@ -56,16 +60,15 @@ public class LoginViewUi {
 
         Button loginButton = new Button("login");
         Button createButton = new Button("create new user");
-        Timer timer = new Timer();
 
         loginButton.setOnAction(e -> {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             //menuLabel.setText(username + " logged in");
             if (UserService.login(username, password)) {
+                System.out.println(username + " " + password + " " + UserService.login(username, password));
                 loginMessage.setText("");
-                //redrawTitlelist();
-                primaryStage.setScene(titleScene);
+                primaryStage.setScene(sceneSwitcherUi.SwitchToMain());
                 usernameInput.setText("");
                 passwordInput.setText("");
                 TitleService.checkDatabase();

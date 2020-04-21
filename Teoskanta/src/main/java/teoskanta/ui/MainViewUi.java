@@ -28,12 +28,18 @@ public class MainViewUi {
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private Stage primaryStage;
+    private SceneSwitcherUi sceneSwitcherUi;
 
     public MainViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
 
-    public void buildScene() {
+    public Scene buildScene() {
+        userDao = new DBUserDao();
+        UserService = new UserService(userDao);
+        sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
+        titleDao = new DBTitleDao();
+        TitleService = new TitleService(titleDao);
         ScrollPane titleScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(titleScrollbar);
         titleScene = new Scene(mainPane, 600, 600);
@@ -45,7 +51,7 @@ public class MainViewUi {
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
         logoutButton.setOnAction(e -> {
             UserService.logout();
-            primaryStage.setScene(loginScene);
+            primaryStage.setScene(sceneSwitcherUi.SwitchToLogin());
         });
 
         HBox createForm = new HBox(10);
@@ -73,5 +79,6 @@ public class MainViewUi {
             newYearInput.setText("");
             //redrawTitlelist();
         });
+        return titleScene;
     }
 }

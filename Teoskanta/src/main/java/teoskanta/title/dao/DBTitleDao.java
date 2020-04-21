@@ -169,7 +169,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.setInt(1, userid);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            titleList.add(new Title(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
+            titleList.add(new Title(rs.getInt("id"), rs.getString("name"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
         }
         stmt.close();
         closeConn();

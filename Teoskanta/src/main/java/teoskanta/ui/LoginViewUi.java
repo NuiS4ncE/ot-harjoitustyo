@@ -25,8 +25,8 @@ public class LoginViewUi {
     private Scene loginScene;
     private UserService UserService;
     private TitleService TitleService;
-    private Scene titleScene;
-    private VBox titleNodes;
+    //private Scene titleScene;
+    //private VBox titleNodes;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private Stage primaryStage;

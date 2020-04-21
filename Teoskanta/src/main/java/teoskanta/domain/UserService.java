@@ -5,18 +5,19 @@ import teoskanta.user.dao.DBUserDao;
 
 public class UserService {
 
-    private DBUserDao userDao;
+    private DBUserDao dbUserDao;
     private User loggedIn;
 
     public UserService(DBUserDao userDao) {
-        this.userDao = userDao;
+        this.dbUserDao = userDao;
+        loggedIn = new User();
     }
 
     public boolean newUser(String username, String password) {
         System.out.println(username + " " + password);
         try {
-            userDao.create(new User(username, password));
-            if (userDao.findUser(username, password)) {
+            dbUserDao.create(new User(username, password));
+            if (dbUserDao.findUser(username, password)) {
                 return true;
             } else {
                 return false;
@@ -30,12 +31,15 @@ public class UserService {
     public boolean login(String username, String password) {
         System.out.println(username + " " + password);
         System.out.println("Now we're in userService-class");
-        int id = 0;
+        int id;
         try {
-            if (userDao.findUser(username, password)) {
-                id = userDao.getUserIdFromDatabase(username, password);
+            if (dbUserDao.findUser(username, password)) {
+                id = dbUserDao.getUserIdFromDatabase(username, password);
                 System.out.println("this is the id: " + id);
-                loggedIn = new User(id, username, password);
+                //loggedIn = new User(id, username, password);
+                loggedIn.setId(id);
+                loggedIn.setUsername(username);
+                loggedIn.setPassword(password);
                 return true;
             } else {
                 return false;
@@ -62,7 +66,7 @@ public class UserService {
 
     public void checkDatabase() {
         try {
-            userDao.checkDatabaseFile();
+            dbUserDao.checkDatabaseFile();
         } catch (Exception e) {
             System.out.println("Database check or creation for users failed: " + e);
         }
@@ -70,12 +74,14 @@ public class UserService {
 
     public int getUserId() {
         int id = 0;
-        try {
-            id = userDao.getUserIdFromDatabase(loggedIn.getUsername(), loggedIn.getPassword());
+        /*try {
+            id = dbUserDao.getUserIdFromDatabase(loggedIn.getUsername(), loggedIn.getPassword());
         } catch (Exception e) {
             System.out.println("Having trouble getting userid: " + e);
             e.printStackTrace();
-        }
+        }*/
+        System.out.println("This is the loggedin id: " + loggedIn.getId());
+        id = loggedIn.getId();
         return id;
     }
 }

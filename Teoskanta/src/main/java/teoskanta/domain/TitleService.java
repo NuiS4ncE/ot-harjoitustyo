@@ -11,7 +11,7 @@ import teoskanta.title.dao.DBTitleDao;
 
 public class TitleService {
 
-    private DBUserDao userDao;
+    private DBUserDao dbUserDao;
     private User user;
     private DBTitleDao dbTitleDao;
     private UserService userService;
@@ -19,12 +19,13 @@ public class TitleService {
 
     public TitleService(DBTitleDao dbtitleDao) {
         this.dbTitleDao = dbtitleDao;
-        user = new User();
     }
 
     public boolean createTitle(String name, String author, String year) {
-        System.out.println(name + " " + author + " " + year + " " + user.getId());
-        title = new Title(name, author, year, user.getId());
+        dbUserDao = new DBUserDao();
+        userService = new UserService(dbUserDao);
+        System.out.println(name + " " + author + " " + year + " " + userService.getUserId());
+        title = new Title(name, author, year, userService.getUserId());
         try {
             dbTitleDao.create(title);
             if (dbTitleDao.findTitle(name, author, year)) {

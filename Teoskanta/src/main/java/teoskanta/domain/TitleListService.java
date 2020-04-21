@@ -6,21 +6,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Collections;
+import teoskanta.title.dao.DBTitleDao;
 import teoskanta.title.dao.TitleDao;
+import teoskanta.user.dao.DBUserDao;
 
 public class TitleListService {
 
-    private TitleDao dbtitleDao;
+    private DBTitleDao dbTitleDao;
     private UserService userService;
+    private DBUserDao dbUserDao;
+    private User user;
 
-    public TitleListService(TitleDao DBtitleDao) {
-        this.dbtitleDao = DBtitleDao;
+    public TitleListService(DBTitleDao DBtitleDao) {
+        this.dbTitleDao = DBtitleDao;
     }
 
     public List<Title> getList() {
+        userService = new UserService(dbUserDao);
         List<Title> titleList = new ArrayList<>();
         try {
-            titleList = dbtitleDao.list(userService.getUserId());
+            titleList = dbTitleDao.list(userService.getLoggedInUser().getId());
         } catch (Exception e) {
             System.out.println("Title list retrieval had problems: " + e);
         }

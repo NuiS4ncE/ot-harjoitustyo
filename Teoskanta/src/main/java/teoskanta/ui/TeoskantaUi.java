@@ -41,16 +41,8 @@ public class TeoskantaUi extends Application {
     private VBox titleNodes;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
-
-    private void redrawTitlelist() {
-        /*    titleNodes.getChildren().clear();
-        
-        List<Title> listedTitles = TitleService.getList();
-        listedTitles.forEach(title->{
-            titleNodes.getChildren().add(createTitleNode(title));
-        });    
-        //to be continued.. or edited.. or deleted..*/
-    }
+    private MainViewUi mainViewUi;
+    private LoginViewUi loginViewUi;
 
     public Node createTitleNode(Title title) {
         HBox box = new HBox(10);
@@ -71,157 +63,24 @@ public class TeoskantaUi extends Application {
         return box;
     }
 
-    private void createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) {
-        loginErrorMessage.setText("");
-        // create new user scene
-        VBox createUserPane = new VBox(10);
-
-        HBox createUsernamePane = new HBox(10);
-        createUsernamePane.setPadding(new Insets(10));
-        TextField createUsernameInput = new TextField();
-        Label createUsernameLabel = new Label("username");
-        //Label createPasswordLabel = new Label("password");
-        createUsernameLabel.setPrefWidth(100);
-        createUsernamePane.getChildren().addAll(createUsernameLabel, createUsernameInput);
-
-        HBox newNamePane = new HBox(10);
-        newNamePane.setPadding(new Insets(10));
-        TextField newPasswordInput = new TextField();
-        Label newPasswordLabel = new Label("password");
-        newPasswordLabel.setPrefWidth(100);
-        newNamePane.getChildren().addAll(newPasswordLabel, newPasswordInput);
-
-        Label userCreationMessage = new Label();
-
-        Button createNewUserButton = new Button("create");
-        createNewUserButton.setPadding(new Insets(10));
-
-        createNewUserButton.setOnAction(e -> {
-            String username = createUsernameInput.getText();
-            String password = newPasswordInput.getText();
-
-            if (username.length() == 2 || password.length() < 2) {
-                userCreationMessage.setText("username or password too short");
-                userCreationMessage.setTextFill(Color.RED);
-            } else if (UserService.newUser(username, password)) {
-                userCreationMessage.setText("");
-                loginMessage.setText("new user created");
-                loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(loginScene);
-            } else {
-                userCreationMessage.setText("username has to be unique");
-                userCreationMessage.setTextFill(Color.RED);
-            }
-
-        });
-
-        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton);
-
-        newUserScene = new Scene(createUserPane, 600, 250);
-
-    }
-
     @Override
     public void start(Stage primaryStage) {
         userDao = new DBUserDao();
         UserService = new UserService(userDao);
         titleDao = new DBTitleDao();
         TitleService = new TitleService(titleDao);
+        loginViewUi = new LoginViewUi(primaryStage);
+        mainViewUi = new MainViewUi(primaryStage);
 
         // check database exists
         UserService.checkDatabase();
         TitleService.checkDatabase();
-        VBox loginPane = new VBox(10);
-        HBox inputPane = new HBox(10);
-        loginPane.setPadding(new Insets(10));
-        Label loginLabel = new Label("username");
-        loginLabel.setAlignment(Pos.TOP_RIGHT);
-        TextField usernameInput = new TextField();
-        usernameInput.setAlignment(Pos.TOP_CENTER);
-        Label loginLabel2 = new Label("password");
-        TextField passwordInput = new TextField();
 
-        inputPane.getChildren().addAll(loginLabel, usernameInput, loginLabel2, passwordInput);
-        Label loginMessage = new Label();
-        Label loginErrorMessage = new Label();
-
-        Button loginButton = new Button("login");
-        Button createButton = new Button("create new user");
-        Timer timer = new Timer();
-
-        loginButton.setOnAction(e -> {
-            String username = usernameInput.getText();
-            String password = passwordInput.getText();
-            //menuLabel.setText(username + " logged in");
-            if (UserService.login(username, password)) {
-                loginMessage.setText("");
-                redrawTitlelist();
-                primaryStage.setScene(titleScene);
-                usernameInput.setText("");
-                passwordInput.setText("");
-                TitleService.checkDatabase();
-            } else {
-                loginErrorMessage.setText("username or password doesn't exist");
-                loginErrorMessage.setTextFill(Color.RED);
-                Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent event) -> {
-                    loginErrorMessage.setText("");
-                }));
-                //fiveSecondsWonder.setCycleCount(1);
-                fiveSecondsWonder.play();
-            }
-        });
-
-        createButton.setOnAction(e -> {
-            usernameInput.setText("");
-            primaryStage.setScene(newUserScene);
-        });
-
-        loginPane.getChildren().addAll(loginErrorMessage, loginMessage, inputPane, loginButton, createButton);
-
-        loginScene = new Scene(loginPane, 600, 250);
-
-        createUser(loginMessage, primaryStage, loginErrorMessage);
+        // login scene
+        this.loginScene = loginViewUi.buildScene();
 
         // main scene
-        ScrollPane titleScrollbar = new ScrollPane();
-        BorderPane mainPane = new BorderPane(titleScrollbar);
-        titleScene = new Scene(mainPane, 600, 600);
-
-        HBox menuPane = new HBox(10);
-        Region menuSpacer = new Region();
-        HBox.setHgrow(menuSpacer, Priority.ALWAYS);
-        Button logoutButton = new Button("logout");
-        menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
-        logoutButton.setOnAction(e -> {
-            UserService.logout();
-            primaryStage.setScene(loginScene);
-        });
-
-        HBox createForm = new HBox(10);
-        Button createTitle = new Button("create");
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        TextField newTitleInput = new TextField();
-        TextField newAuthorInput = new TextField();
-        TextField newYearInput = new TextField();
-        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle);
-
-        titleNodes = new VBox(10);
-        titleNodes.setMaxWidth(360);
-        titleNodes.setMinWidth(360);
-        redrawTitlelist();
-
-        titleScrollbar.setContent(titleNodes);
-        mainPane.setBottom(createForm);
-        mainPane.setTop(menuPane);
-
-        createTitle.setOnAction(e -> {
-            TitleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
-            newTitleInput.setText("");
-            newAuthorInput.setText("");
-            newYearInput.setText("");
-            redrawTitlelist();
-        });
+        mainViewUi.buildScene();
 
         // setup primary stage
         primaryStage.setTitle("Teoskanta");

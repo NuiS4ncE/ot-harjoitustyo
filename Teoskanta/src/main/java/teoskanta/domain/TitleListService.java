@@ -25,7 +25,7 @@ public class TitleListService {
         userService = new UserService(dbUserDao);
         List<Title> titleList = new ArrayList<>();
         try {
-            titleList = dbTitleDao.list(userService.getLoggedInUser().getId());
+            titleList = dbTitleDao.list(userService.getUserId());
         } catch (Exception e) {
             System.out.println("Title list retrieval had problems: " + e);
         }

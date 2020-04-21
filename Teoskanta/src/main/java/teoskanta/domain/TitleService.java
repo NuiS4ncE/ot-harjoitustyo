@@ -23,7 +23,7 @@ public class TitleService {
         this.dbTitleDao = dbtitleDao;
     }
 
-    public boolean createTitle(String name, String author, String year) {
+    public boolean createTitle(String name, String author, String year) throws Exception{
         dbUserDao = new DBUserDao();
         userService = new UserService(dbUserDao);
         System.out.println(name + " " + author + " " + year + " " + userService.getUserId());
@@ -37,12 +37,12 @@ public class TitleService {
             }
         } catch (Exception e) {
             System.out.println("Title creation had problems: " + e);
-            e.printStackTrace();
+           e.printStackTrace();
         }
         return false;
     }
 
-    public boolean deleteTitle(Title title) {
+    public boolean deleteTitle(Title title) throws Exception{
         dbUserDao = new DBUserDao();
         userService = new UserService(dbUserDao);
         int userid;
@@ -57,13 +57,13 @@ public class TitleService {
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Title deletion had problems: " + e);
-            e.printStackTrace();
+           System.out.println("Title deletion had problems: " + e);
+           e.printStackTrace();
         }
         return false;
     }
 
-    public void checkDatabase() {
+    public void checkDatabase() throws Exception{
         try {
             dbTitleDao.checkDBForTitles();
         } catch (Exception e) {

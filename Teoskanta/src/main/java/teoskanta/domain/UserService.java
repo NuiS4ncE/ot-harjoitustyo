@@ -1,5 +1,6 @@
 package teoskanta.domain;
 
+import java.sql.SQLException;
 import java.util.*;
 import teoskanta.user.dao.DBUserDao;
 
@@ -13,7 +14,7 @@ public class UserService {
         loggedIn = new User();
     }
 
-    public boolean newUser(String username, String password) {
+    public boolean newUser(String username, String password) throws SQLException{
         System.out.println(username + " " + password);
         try {
             dbUserDao.create(new User(username, password));
@@ -23,12 +24,12 @@ public class UserService {
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("User creation had problems: " + e);
+           System.out.println("User creation had problems: " + e);
         }
         return false;
     }
 
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws SQLException{
         System.out.println(username + " " + password);
         System.out.println("Now we're in userService-class");
         int id;
@@ -45,25 +46,24 @@ public class UserService {
             }
         } catch (Exception e) {
             System.out.println("Login doesn't work or username not found: " + e);
-            e.printStackTrace();
+          e.printStackTrace();
         }
         return false;
     }
 
     public boolean logout() {
-        loggedIn = null;
+        loggedIn = null;        
         if (loggedIn == null) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     public User getLoggedInUser() {
         return loggedIn;
     }
 
-    public void checkDatabase() {
+    public void checkDatabase() throws SQLException{
         try {
             dbUserDao.checkDBFile();
         } catch (Exception e) {
@@ -72,13 +72,7 @@ public class UserService {
     }
 
     public int getUserId() {
-        int id = 0;
-        /*try {
-            id = dbUserDao.getUserIdFromDatabase(loggedIn.getUsername(), loggedIn.getPassword());
-        } catch (Exception e) {
-            System.out.println("Having trouble getting userid: " + e);
-            e.printStackTrace();
-        }*/
+        int id = 0;        
         System.out.println("This is the loggedin id: " + loggedIn.getId());
         id = loggedIn.getId();
         return id;

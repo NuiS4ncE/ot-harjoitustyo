@@ -1,5 +1,8 @@
 package teoskanta.ui;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -85,7 +88,11 @@ public class LoginViewUi {
         createButton.setOnAction(e -> {
             usernameInput.setText("");
             passwordInput.setText("");
-            primaryStage.setScene(createUserView.createUser(loginMessage, primaryStage, loginErrorMessage));
+            try {
+                primaryStage.setScene(createUserView.createUser(loginMessage, primaryStage, loginErrorMessage));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         });
         
         loginPane.getChildren().addAll(loginErrorMessage, loginMessage, inputPane, loginButton, createButton);

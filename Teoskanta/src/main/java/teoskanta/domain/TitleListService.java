@@ -17,8 +17,8 @@ public class TitleListService {
     private DBUserDao dbUserDao;
     private User user;
 
-    public TitleListService(DBTitleDao DBtitleDao) {
-        this.dbTitleDao = DBtitleDao;
+    public TitleListService(DBTitleDao dbtitleDao2) {
+        this.dbTitleDao = dbtitleDao2;
     }
 
     public List<Title> getList() {

@@ -34,9 +34,8 @@ public class UserService {
         int id;
         try {
             if (dbUserDao.findUser(username, password)) {
-                id = dbUserDao.getUserIdFromDatabase(username, password);
+                id = dbUserDao.getUserIdFromDB(username, password);
                 System.out.println("this is the id: " + id);
-                //loggedIn = new User(id, username, password);
                 loggedIn.setId(id);
                 loggedIn.setUsername(username);
                 loggedIn.setPassword(password);
@@ -66,7 +65,7 @@ public class UserService {
 
     public void checkDatabase() {
         try {
-            dbUserDao.checkDatabaseFile();
+            dbUserDao.checkDBFile();
         } catch (Exception e) {
             System.out.println("Database check or creation for users failed: " + e);
         }

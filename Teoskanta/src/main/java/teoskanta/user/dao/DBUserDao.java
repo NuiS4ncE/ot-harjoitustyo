@@ -22,7 +22,7 @@ public class DBUserDao implements UserDao<User, Integer> {
         connection.close();
     }
 
-    public void checkDatabaseFile() {
+    public void checkDBFile() {
         // check if database file exists
         String userTable = "CREATE TABLE IF NOT EXISTS Users ("
                 + "`id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -40,7 +40,7 @@ public class DBUserDao implements UserDao<User, Integer> {
         }
     }
 
-    public int getUserIdFromDatabase(String username, String password) throws SQLException {
+    public int getUserIdFromDB(String username, String password) throws SQLException {
         int id;
         startConn();
         stmt = connection.prepareStatement("SELECT * FROM Users WHERE username = ? AND password = ?");

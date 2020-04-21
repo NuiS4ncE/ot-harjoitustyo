@@ -21,8 +21,8 @@ public class MainViewUi {
     private Scene newUserScene;
     private Label menuLabel = new Label();
     private Scene loginScene;
-    private UserService UserService;
-    private TitleService TitleService;
+    private UserService userService;
+    private TitleService titleService;
     private Scene titleScene;
     private VBox titleNodes;
     private DBUserDao userDao;
@@ -33,13 +33,13 @@ public class MainViewUi {
     public MainViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-
+/*
     public Scene buildScene() {
         userDao = new DBUserDao();
-        UserService = new UserService(userDao);
+        userService = new UserService(userDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         titleDao = new DBTitleDao();
-        TitleService = new TitleService(titleDao);
+        titleService = new TitleService(titleDao);
         ScrollPane titleScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(titleScrollbar);
         titleScene = new Scene(mainPane, 600, 600);
@@ -50,7 +50,7 @@ public class MainViewUi {
         Button logoutButton = new Button("logout");
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
         logoutButton.setOnAction(e -> {
-            UserService.logout();
+            userService.logout();
             primaryStage.setScene(sceneSwitcherUi.SwitchToLogin());
         });
 
@@ -73,12 +73,12 @@ public class MainViewUi {
         mainPane.setTop(menuPane);
 
         createTitle.setOnAction(e -> {
-            TitleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
+            titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
             newTitleInput.setText("");
             newAuthorInput.setText("");
             newYearInput.setText("");
             //redrawTitlelist();
         });
         return titleScene;
-    }
+    } */
 }

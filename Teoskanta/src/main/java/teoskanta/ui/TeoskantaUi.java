@@ -36,8 +36,8 @@ public class TeoskantaUi extends Application {
     private Scene newUserScene;
     private Label menuLabel = new Label();
     private Scene loginScene;
-    private UserService UserService;
-    private TitleService TitleService;
+    private UserService userService;
+    private TitleService titleService;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
@@ -45,17 +45,17 @@ public class TeoskantaUi extends Application {
     @Override
     public void start(Stage primaryStage) {
         userDao = new DBUserDao();
-        UserService = new UserService(userDao);
+        userService = new UserService(userDao);
         titleDao = new DBTitleDao();
-        TitleService = new TitleService(titleDao);
+        titleService = new TitleService(titleDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
 
         // check database exists
-        UserService.checkDatabase();
-        TitleService.checkDatabase();
+        userService.checkDatabase();
+        titleService.checkDatabase();
 
         // login scene
-        this.loginScene = sceneSwitcherUi.SwitchToLogin();
+        this.loginScene = sceneSwitcherUi.switchToLogin();
 
         // main scene
 
@@ -69,11 +69,11 @@ public class TeoskantaUi extends Application {
     public void closeRequest(Stage stage) {
         stage.setOnCloseRequest(e -> {
             System.out.println("closing");
-            System.out.println(UserService.getLoggedInUser());
-            if (UserService.getLoggedInUser() != null) {
-                UserService.logout();
+            System.out.println(userService.getLoggedInUser());
+            if (userService.getLoggedInUser() != null) {
+                userService.logout();
             }
-            System.out.println(UserService.getLoggedInUser());
+            System.out.println(userService.getLoggedInUser());
             Platform.exit();
         });
     }

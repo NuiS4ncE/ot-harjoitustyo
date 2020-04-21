@@ -29,7 +29,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         connection.close();
     }
 
-    public void checkDatabaseFileForTitles() throws Exception {
+    public void checkDBForTitles() throws Exception {
         // check if database file exists
         String titleTable = "CREATE TABLE IF NOT EXISTS Titles ("
                 + "`id`	INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -44,31 +44,29 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         connection.close();
     }
 
-    public Boolean findTitle(String name, String author, String year, int userid) throws SQLException {
+    public Boolean findTitle(Title title, int userid) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("SELECT name, author, year, userid FROM Titles WHERE name = ? AND author = ? AND year = ? AND userid = ?");
-        stmt.setString(1, name);
-        stmt.setString(2, author);
-        stmt.setString(3, year);
+        stmt.setString(1, title.getName());
+        stmt.setString(2, title.getAuthor());
+        stmt.setString(3, title.getYear());
         stmt.setInt(4, userid);
         ResultSet rs = stmt.executeQuery();
         String rsName, rsAuthor, rsYear;
         int rsUserid;
         if (!rs.next()) {
-            return null;
+            return false;
         } else {
             rsName = rs.getString("name");
             rsAuthor = rs.getString("author");
             rsYear = rs.getString("year");
             rsUserid = rs.getInt("userid");
         }
-        System.out.println(rsName + " " + rsAuthor + " " + rsYear + " " + rsUserid);
-        if (rsName.equals(name) && rsAuthor.equals(author) && rsYear.equals(year) && rsUserid == userid) {
+        if (rsName.equals(title.getName()) && rsAuthor.equals(title.getAuthor()) && rsYear.equals(title.getYear()) && rsUserid == userid) {
             rs.close();
             closeConn();
             return true;
         } else {
-            System.out.println("Tämä on FALSE!");
             rs.close();
             stmt.close();
             closeConn();
@@ -76,24 +74,24 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         }
     }
 
-    public Boolean findTitle(String name, String author, String year) throws SQLException {
+    public Boolean findTitle(Title title) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE name = ? AND author = ? AND year = ?");
-        stmt.setString(1, name);
-        stmt.setString(2, author);
-        stmt.setString(3, year);
+        stmt.setString(1, title.getName());
+        stmt.setString(2, title.getAuthor());
+        stmt.setString(3, title.getYear());
         ResultSet rs = stmt.executeQuery();
         String rsName, rsAuthor, rsYear;
         if (!rs.next()) {
-            return null;
+            return false;
         } else {
             rsName = rs.getString("name");
             rsAuthor = rs.getString("author");
             rsYear = rs.getString("year");
         }
-        System.out.println(rsName + " SQL " + rsAuthor + " " + rsYear);
-        if (rsName.equals(name) && rsAuthor.equals(author) && rsYear == year) {
+        if (rsName.equals(title.getName()) && rsAuthor.equals(title.getAuthor()) && rsYear.equals(title.getYear())) {
             rs.close();
+            stmt.close();
             closeConn();
             return true;
         } else {
@@ -105,7 +103,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     }
 
     @Override
-    public void create(Title title) throws SQLException {
+    public void create(Title title, Integer userid) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("INSERT INTO Titles"
                 + "(name, author, year, userid)"
@@ -113,7 +111,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.setString(1, title.getName());
         stmt.setString(2, title.getAuthor());
         stmt.setString(3, title.getYear());
-        stmt.setInt(4, title.getUserId());
+        stmt.setInt(4, userid);
         stmt.executeUpdate();
         closeConn();
     }
@@ -150,12 +148,11 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     }
 
     @Override
-    public void delete(Title title, Integer id) throws SQLException {
+    public void delete(Title title, Integer userid) throws SQLException {
         startConn();
-        stmt = connection.prepareStatement("DELETE * FROM Titles"
-                + "WHERE id = ? AND userid = ?");
-        stmt.setInt(1, id);
-        stmt.setInt(2, title.getUserId());
+        stmt = connection.prepareStatement("DELETE FROM Titles WHERE id = ? AND userid = ?");
+        stmt.setInt(1, title.getId());
+        stmt.setInt(2, userid);
         stmt.executeUpdate();
         stmt.close();
         closeConn();

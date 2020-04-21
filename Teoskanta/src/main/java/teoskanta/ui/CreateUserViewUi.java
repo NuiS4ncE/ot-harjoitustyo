@@ -19,8 +19,8 @@ public class CreateUserViewUi {
     private Scene newUserScene;
     private Label menuLabel = new Label();
     private Scene loginScene;
-    private UserService UserService;
-    private TitleService TitleService;
+    private UserService userService;
+    private TitleService titleService;
     private Scene titleScene;
     private VBox titleNodes;
     private DBUserDao userDao;
@@ -33,7 +33,7 @@ public class CreateUserViewUi {
 
     public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) {
         userDao = new DBUserDao();
-        UserService = new UserService(userDao);
+        userService = new UserService(userDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         loginErrorMessage.setText("");
         // create new user scene
@@ -65,11 +65,11 @@ public class CreateUserViewUi {
             if (username.length() == 2 || password.length() < 2) {
                 userCreationMessage.setText("username or password too short");
                 userCreationMessage.setTextFill(Color.RED);
-            } else if (UserService.newUser(username, password)) {
+            } else if (userService.newUser(username, password)) {
                 userCreationMessage.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(sceneSwitcherUi.SwitchToLogin());
+                primaryStage.setScene(sceneSwitcherUi.switchToLogin());
             } else {
                 userCreationMessage.setText("username has to be unique");
                 userCreationMessage.setTextFill(Color.RED);

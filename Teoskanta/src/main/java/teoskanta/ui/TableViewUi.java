@@ -26,7 +26,7 @@ public class TableViewUi {
     private TitleListService titleListService;
     private Stage primaryStage;
     private Scene tableViewScene;
-    private DBTitleDao titleDao;
+    private DBTitleDao dbTitleDao;
     private BorderPane borderPane;
     private TitleService titleService;
 
@@ -37,9 +37,9 @@ public class TableViewUi {
     public Scene buildScene() {
         borderPane = new BorderPane();
         titleTable = new TableView<>();
-        titleDao = new DBTitleDao();
-        titleListService = new TitleListService(titleDao);
-        titleService = new TitleService(titleDao);
+        dbTitleDao = new DBTitleDao();
+        titleListService = new TitleListService(dbTitleDao);
+        titleService = new TitleService(dbTitleDao);
 
         TableColumn<Title, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -56,27 +56,33 @@ public class TableViewUi {
         VBox vbox = new VBox(titleTable);
         HBox createForm = new HBox(10);
         Button createTitle = new Button("create");
+        Button deleteTitle = new Button("delete");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         TextField newTitleInput = new TextField();
         TextField newAuthorInput = new TextField();
         TextField newYearInput = new TextField();
-        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle);
+        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle, deleteTitle);
 
         borderPane.setCenter(vbox);
         borderPane.setBottom(createForm);
         tableViewScene = new Scene(borderPane);
-        
-         createTitle.setOnAction(e -> {
+
+        createTitle.setOnAction(e -> {
             titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
             newTitleInput.setText("");
             newAuthorInput.setText("");
             newYearInput.setText("");
             primaryStage.setScene(buildScene());
-         });
+        });
+
+        deleteTitle.setOnAction(e -> {
+            Title selectedItem = titleTable.getSelectionModel().getSelectedItem();
+            titleTable.getItems().remove(selectedItem);
+            titleService.deleteTitle(selectedItem);
+        });
 
         return tableViewScene;
     }
 
-   
 }

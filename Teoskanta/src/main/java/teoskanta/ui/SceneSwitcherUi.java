@@ -21,15 +21,15 @@ public class SceneSwitcherUi {
 
     }
 
-    public Scene SwitchToLogin() {
+    public Scene switchToLogin() {
         return loginViewUi.buildScene();
     }
 
-    public Scene SwitchToMain() {
+   /* public Scene SwitchToMain() {
         return mainViewUi.buildScene();
-    }
+    } */
     
-    public Scene SwitchToTableView() {
+    public Scene switchToTableView() {
         return tableViewUi.buildScene();
     }
 

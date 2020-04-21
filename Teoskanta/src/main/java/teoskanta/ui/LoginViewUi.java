@@ -23,8 +23,8 @@ public class LoginViewUi {
 
     private Label menuLabel = new Label();
     private Scene loginScene;
-    private UserService UserService;
-    private TitleService TitleService;
+    private UserService userService;
+    private TitleService titleService;
     //private Scene titleScene;
     //private VBox titleNodes;
     private DBUserDao userDao;
@@ -40,8 +40,8 @@ public class LoginViewUi {
     public Scene buildScene() { 
         userDao = new DBUserDao();
         titleDao = new DBTitleDao();
-        TitleService = new TitleService(titleDao);
-        UserService = new UserService(userDao);
+        titleService = new TitleService(titleDao);
+        userService = new UserService(userDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         createUserView = new CreateUserViewUi();
         VBox loginPane = new VBox(10);
@@ -65,13 +65,13 @@ public class LoginViewUi {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
             //menuLabel.setText(username + " logged in");
-            if (UserService.login(username, password)) {
-                System.out.println(username + " " + password + " " + UserService.login(username, password));
+            if (userService.login(username, password)) {
+                System.out.println(username + " " + password + " " + userService.login(username, password));
                 loginMessage.setText("");
-                primaryStage.setScene(sceneSwitcherUi.SwitchToTableView());
+                primaryStage.setScene(sceneSwitcherUi.switchToTableView());
                 usernameInput.setText("");
                 passwordInput.setText("");
-                TitleService.checkDatabase();
+                titleService.checkDatabase();
             } else {
                 loginErrorMessage.setText("username or password doesn't exist");
                 loginErrorMessage.setTextFill(Color.RED);

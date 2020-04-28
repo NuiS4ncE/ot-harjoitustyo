@@ -55,6 +55,7 @@ public class TableViewUi {
         titleTable = new TableView<>();
         dbTitleDao = new DBTitleDao();
         dbUserDao = new DBUserDao();
+        sceneSwitcherUi = new SceneSwitcherUi(primaryStage);
         userService = new UserService(dbUserDao);
         titleListService = new TitleListService(dbTitleDao);
         titleService = new TitleService(dbTitleDao);

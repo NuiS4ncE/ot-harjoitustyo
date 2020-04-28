@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import teoskanta.title.TitleService;
 import teoskanta.title.dao.DBTitleDao;
+import teoskanta.user.UserService;
+import teoskanta.user.dao.DBUserDao;
 
 /**
  * Class for table view graphical user interface creation
@@ -32,6 +34,9 @@ public class TableViewUi {
     private DBTitleDao dbTitleDao;
     private BorderPane borderPane;
     private TitleService titleService;
+    private UserService userService;
+    private SceneSwitcherUi sceneSwitcherUi;
+    private DBUserDao dbUserDao;
 
     /**
      * Constructor for listing tableview ui
@@ -49,6 +54,8 @@ public class TableViewUi {
         borderPane = new BorderPane();
         titleTable = new TableView<>();
         dbTitleDao = new DBTitleDao();
+        dbUserDao = new DBUserDao();
+        userService = new UserService(dbUserDao);
         titleListService = new TitleListService(dbTitleDao);
         titleService = new TitleService(dbTitleDao);
 
@@ -68,17 +75,17 @@ public class TableViewUi {
         HBox createForm = new HBox(10);
         Button createTitle = new Button("create");
         Button deleteTitle = new Button("delete");
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
         TextField newTitleInput = new TextField();
         TextField newAuthorInput = new TextField();
         TextField newYearInput = new TextField();
-        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle, deleteTitle);
+        Button logoutButton = new Button("logout");
+        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, logoutButton, createTitle, deleteTitle);
 
         borderPane.setCenter(vbox);
         borderPane.setBottom(createForm);
         tableViewScene = new Scene(borderPane);
-
+        
+        
         createTitle.setOnAction(e -> {
             titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
             newTitleInput.setText("");
@@ -91,6 +98,14 @@ public class TableViewUi {
             Title selectedItem = titleTable.getSelectionModel().getSelectedItem();
             titleTable.getItems().remove(selectedItem);
             titleService.deleteTitle(selectedItem);
+        });
+        
+        /*borderPane.setTop(logoutButton);
+        borderPane.getChildren().addAll(logoutButton);
+        */
+        logoutButton.setOnAction(e -> {
+            userService.logout();
+            primaryStage.setScene(sceneSwitcherUi.switchToLogin());
         });
 
         return tableViewScene;

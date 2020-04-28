@@ -5,10 +5,10 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import teoskanta.domain.Title;
-import teoskanta.domain.TitleService;
-import teoskanta.domain.User;
-import teoskanta.domain.UserService;
+import teoskanta.title.Title;
+import teoskanta.title.TitleService;
+import teoskanta.user.User;
+import teoskanta.user.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 

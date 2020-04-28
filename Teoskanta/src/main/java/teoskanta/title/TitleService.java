@@ -1,5 +1,6 @@
-package teoskanta.domain;
+package teoskanta.title;
 
+import teoskanta.title.Title;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import teoskanta.user.dao.DBUserDao;
-import teoskanta.domain.User;
+import teoskanta.user.User;
+import teoskanta.user.User;
+import teoskanta.user.UserService;
 import teoskanta.title.dao.DBTitleDao;
 
 /**

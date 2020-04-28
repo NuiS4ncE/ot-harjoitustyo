@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 import java.util.List;
-import teoskanta.domain.Title;
-import teoskanta.domain.User;
+import teoskanta.title.Title;
+import teoskanta.user.User;
 import teoskanta.user.dao.UserDao;
-import teoskanta.domain.Title;
+import teoskanta.title.Title;
 
 /**
  * Class to handle SQL querys

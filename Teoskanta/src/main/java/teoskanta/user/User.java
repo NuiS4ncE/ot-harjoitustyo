@@ -1,4 +1,4 @@
-package teoskanta.domain;
+package teoskanta.user;
 
 /**
  * User class for user creation

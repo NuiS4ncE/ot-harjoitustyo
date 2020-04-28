@@ -13,11 +13,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import teoskanta.domain.Title;
-import teoskanta.domain.TitleListService;
+import teoskanta.title.Title;
+import teoskanta.title.TitleListService;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import teoskanta.domain.TitleService;
+import teoskanta.title.TitleService;
 import teoskanta.title.dao.DBTitleDao;
 
 /**

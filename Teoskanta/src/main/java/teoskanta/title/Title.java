@@ -1,5 +1,6 @@
-package teoskanta.domain;
+package teoskanta.title;
 
+import teoskanta.user.User;
 import teoskanta.user.dao.DBUserDao;
 
 public class Title implements Comparable<Title> {

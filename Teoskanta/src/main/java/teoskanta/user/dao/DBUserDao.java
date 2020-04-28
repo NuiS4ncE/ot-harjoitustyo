@@ -1,7 +1,7 @@
 package teoskanta.user.dao;
 
 import java.io.File;
-import teoskanta.domain.User;
+import teoskanta.user.User;
 import java.util.*;
 import java.sql.*;
 

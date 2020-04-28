@@ -5,8 +5,8 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import teoskanta.domain.TitleService;
-import teoskanta.domain.UserService;
+import teoskanta.title.TitleService;
+import teoskanta.user.UserService;
 import teoskanta.user.dao.DBUserDao;
 import teoskanta.title.dao.DBTitleDao;
 

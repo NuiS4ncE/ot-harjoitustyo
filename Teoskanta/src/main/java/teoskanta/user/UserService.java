@@ -1,4 +1,4 @@
-package teoskanta.domain;
+package teoskanta.user;
 
 import java.sql.SQLException;
 import java.util.*;

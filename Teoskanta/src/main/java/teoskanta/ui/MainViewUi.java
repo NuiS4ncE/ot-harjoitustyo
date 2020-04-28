@@ -11,8 +11,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import teoskanta.domain.TitleService;
-import teoskanta.domain.UserService;
+import teoskanta.title.TitleService;
+import teoskanta.user.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 

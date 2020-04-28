@@ -1,11 +1,14 @@
-package teoskanta.domain;
+package teoskanta.title;
 
+import teoskanta.title.Title;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Collections;
+import teoskanta.user.User;
+import teoskanta.user.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.title.dao.TitleDao;
 import teoskanta.user.dao.DBUserDao;

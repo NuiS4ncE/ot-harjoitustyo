@@ -4,7 +4,7 @@
 
 Ohjelman rakenne on kolmitasoinen ja pakkausten rakenne on esitetty kuvassa:
 
-<img src="https://raw.githubusercontent.com/NuiS4ncE/ot-harjoitustyo/Teoskanta/dokumentointi/images/ak1.png" width="160">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/ak1.png" width="160">
 
 Teoskanta.ui-pakkaus käyttää JavaFX:ää ja toteuttaa sovelluslogiikkansa teoskanta.domain:in kautta. Teoskanta.domain taas käyttää teoskanta.dao:a tietokannan käsittelyyn. 
 

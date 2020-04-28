@@ -53,12 +53,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.3</version>
-                <configuration>
-                    <excludes>
-                        <exclude>pokemontietokanta/ui/*</exclude>
-                    </excludes>
-                </configuration>
+                <version>0.8.3</version>                
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -96,9 +91,12 @@
                     <configLocation>checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
+            <plugin>                
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
                 <version>2.5</version>
             </plugin>
         </plugins>

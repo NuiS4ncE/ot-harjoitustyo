@@ -81,6 +81,29 @@ public class DBTitleDaoTest {
         //assertThat(actual, is(DBTitleDao.list(userService.getUserId())));
         assertThat(DBTitleDao.list(userService.getUserId()), not(IsEmptyCollection.empty()));
     }
+    
+    @Test
+    public void checkHowReadDoesNothing() throws Exception {
+        User user = new User("test2112", "12213234");
+        userDao.create(user);
+        userService.login(user.getUsername(), user.getPassword());
+        Title title = new Title("testbookdads", "tsdsadest", "asdsa1234", userService.getUserId());
+        DBTitleDao.create(title, title.getUserId());
+        assertNull(DBTitleDao.read(title, title.getUserId()));
+    }
+    
+    @Test
+    public void checkHowReadDoesNothingAgain() throws Exception {
+        User user = new User("test2112ds", "sda12213234");
+        userDao.create(user);
+        userService.login(user.getUsername(), user.getPassword());
+        Title title = new Title("testbdsdsookdads", "sadsatsdsadest", "sadasdsa1234", userService.getUserId());
+        DBTitleDao.create(title, userService.getUserId());
+        assertNull(DBTitleDao.read(title, title.getUserId()));
+        
+        assertNull(DBTitleDao.read(title, Integer.SIZE));
+    }
+
 
     @AfterClass
     public static void deleteDB() {

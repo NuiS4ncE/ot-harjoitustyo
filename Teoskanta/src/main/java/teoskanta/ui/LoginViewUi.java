@@ -22,24 +22,32 @@ import teoskanta.domain.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 
+
+/*
+* Class to create the login view for graphical user interface
+*/
 public class LoginViewUi {
 
     private Label menuLabel = new Label();
     private Scene loginScene;
     private UserService userService;
-    private TitleService titleService;
-    //private Scene titleScene;
-    //private VBox titleNodes;
+    private TitleService titleService;    
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private Stage primaryStage;
     private CreateUserViewUi createUserView;
     private SceneSwitcherUi sceneSwitcherUi;
 
+    /*
+    * Constructor for login ui
+    */
     public LoginViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-
+    
+    /*
+    * Method to build the login ui scene
+    */
     public Scene buildScene() { 
         userDao = new DBUserDao();
         titleDao = new DBTitleDao();
@@ -67,7 +75,6 @@ public class LoginViewUi {
         loginButton.setOnAction(e -> {
             String username = usernameInput.getText();
             String password = passwordInput.getText();
-            //menuLabel.setText(username + " logged in");
             if (userService.login(username, password)) {
                 System.out.println(username + " " + password + " " + userService.login(username, password));
                 loginMessage.setText("");

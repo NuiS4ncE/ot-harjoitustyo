@@ -15,6 +15,9 @@ import teoskanta.domain.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 
+/*
+* Class to create the user creation view for graphical user interface
+*/
 public class CreateUserViewUi {
 
     private Scene newUserScene;
@@ -27,11 +30,20 @@ public class CreateUserViewUi {
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
-
+    
+    /*
+    * Constructor for user creation ui class
+    */
     public CreateUserViewUi() {
 
     }
-
+    
+    /*
+    * Handles the ui side of user creation 
+    * @param loginMessage Label-type variable
+    * @param primaryStage Stage-type variable used for scene switching 
+    * @parma loginError Label-type variable for login error messages
+    */
     public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) throws SQLException{
         userDao = new DBUserDao();
         userService = new UserService(userDao);
@@ -63,7 +75,7 @@ public class CreateUserViewUi {
             String username = createUsernameInput.getText();
             String password = newPasswordInput.getText();
 
-            if (username.length() == 2 || password.length() < 2) {
+            if (username.length() == 2 || password.length() < 3) {
                 userCreationMessage.setText("username or password too short");
                 userCreationMessage.setTextFill(Color.RED);
             } else if (userService.newUser(username, password)) {

@@ -16,6 +16,10 @@ import teoskanta.domain.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 
+
+/*
+* Class to create the main view for graphical user interface
+*/
 public class MainViewUi {
 
     private Scene newUserScene;
@@ -29,11 +33,18 @@ public class MainViewUi {
     private DBTitleDao titleDao;
     private Stage primaryStage;
     private SceneSwitcherUi sceneSwitcherUi;
-
+    
+    /*
+    * Constructor for main view ui class
+    * @param primStage Stage-type variable 
+    */
     public MainViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-/*
+    
+    /*
+    * Method to build the main view ui scene
+    */
     public Scene buildScene() {
         userDao = new DBUserDao();
         userService = new UserService(userDao);
@@ -51,34 +62,11 @@ public class MainViewUi {
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
         logoutButton.setOnAction(e -> {
             userService.logout();
-            primaryStage.setScene(sceneSwitcherUi.SwitchToLogin());
+            primaryStage.setScene(sceneSwitcherUi.switchToLogin());
         });
 
-        HBox createForm = new HBox(10);
-        Button createTitle = new Button("create");
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        TextField newTitleInput = new TextField();
-        TextField newAuthorInput = new TextField();
-        TextField newYearInput = new TextField();
-        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, spacer, createTitle);
+        
 
-        titleNodes = new VBox(10);
-        titleNodes.setMaxWidth(360);
-        titleNodes.setMinWidth(360);
-        //redrawTitlelist();
-
-        titleScrollbar.setContent(titleNodes);
-        mainPane.setBottom(createForm);
-        mainPane.setTop(menuPane);
-
-        createTitle.setOnAction(e -> {
-            titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
-            newTitleInput.setText("");
-            newAuthorInput.setText("");
-            newYearInput.setText("");
-            //redrawTitlelist();
-        });
         return titleScene;
-    } */
+    }
 }

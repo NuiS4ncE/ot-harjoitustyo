@@ -16,10 +16,9 @@ import teoskanta.domain.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 
-
-/*
-* Class to create the main view for graphical user interface
-*/
+/**
+ * Class to create the main view for graphical user interface
+ */
 public class MainViewUi {
 
     private Scene newUserScene;
@@ -33,18 +32,19 @@ public class MainViewUi {
     private DBTitleDao titleDao;
     private Stage primaryStage;
     private SceneSwitcherUi sceneSwitcherUi;
-    
-    /*
-    * Constructor for main view ui class
-    * @param primStage Stage-type variable 
-    */
+
+    /**
+     * Constructor for main view ui class
+     *
+     * @param primStage Stage-type variable
+     */
     public MainViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-    
+
     /*
     * Method to build the main view ui scene
-    */
+     */
     public Scene buildScene() {
         userDao = new DBUserDao();
         userService = new UserService(userDao);
@@ -64,8 +64,6 @@ public class MainViewUi {
             userService.logout();
             primaryStage.setScene(sceneSwitcherUi.switchToLogin());
         });
-
-        
 
         return titleScene;
     }

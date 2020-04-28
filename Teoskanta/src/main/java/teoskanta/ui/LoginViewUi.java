@@ -25,30 +25,30 @@ import teoskanta.user.dao.DBUserDao;
 
 /*
 * Class to create the login view for graphical user interface
-*/
+ */
 public class LoginViewUi {
 
     private Label menuLabel = new Label();
     private Scene loginScene;
     private UserService userService;
-    private TitleService titleService;    
+    private TitleService titleService;
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private Stage primaryStage;
     private CreateUserViewUi createUserView;
     private SceneSwitcherUi sceneSwitcherUi;
 
-    /*
-    * Constructor for login ui
-    */
+    /**
+     * Constructor for login ui
+     */
     public LoginViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-    
-    /*
-    * Method to build the login ui scene
-    */
-    public Scene buildScene() { 
+
+    /**
+     * Method to build the login ui scene
+     */
+    public Scene buildScene() {
         userDao = new DBUserDao();
         titleDao = new DBTitleDao();
         titleService = new TitleService(titleDao);
@@ -101,12 +101,10 @@ public class LoginViewUi {
                 ex.printStackTrace();
             }
         });
-        
+
         loginPane.getChildren().addAll(loginErrorMessage, loginMessage, inputPane, loginButton, createButton);
 
-        
         return loginScene = new Scene(loginPane, 600, 250);
-
 
     }
 }

@@ -20,9 +20,9 @@ import javafx.stage.Stage;
 import teoskanta.domain.TitleService;
 import teoskanta.title.dao.DBTitleDao;
 
-/*
-* Class for table view graphical user interface creation 
-*/
+/**
+ * Class for table view graphical user interface creation
+ */
 public class TableViewUi {
 
     private TableView<Title> titleTable;
@@ -32,18 +32,19 @@ public class TableViewUi {
     private DBTitleDao dbTitleDao;
     private BorderPane borderPane;
     private TitleService titleService;
-    
-    /* 
-    * Constructor for listing tableview ui
-    * @param primStage Stage-type variable for scene set up
-    */
+
+    /**
+     * Constructor for listing tableview ui
+     *
+     * @param primStage Stage-type variable for scene set up
+     */
     public TableViewUi(Stage primStage) {
         this.primaryStage = primStage;
     }
-    
-    /*
-    * Method for building the ui scene
-    */
+
+    /**
+     * Method for building the ui scene
+     */
     public Scene buildScene() {
         borderPane = new BorderPane();
         titleTable = new TableView<>();

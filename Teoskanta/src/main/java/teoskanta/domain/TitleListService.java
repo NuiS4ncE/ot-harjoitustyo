@@ -10,17 +10,30 @@ import teoskanta.title.dao.DBTitleDao;
 import teoskanta.title.dao.TitleDao;
 import teoskanta.user.dao.DBUserDao;
 
+/**
+ * Class for getting title lists from titleDao
+ * 
+ */
 public class TitleListService {
 
     private DBTitleDao dbTitleDao;
     private UserService userService;
     private DBUserDao dbUserDao;
     private User user;
-
+    
+    /**
+     * Constructor for class
+     * @param dbtitleDao2 DBTitleDao-type variable to construct the class with Dao class input 
+     */
     public TitleListService(DBTitleDao dbtitleDao2) {
         this.dbTitleDao = dbtitleDao2;
     }
-
+    
+    
+    /**
+     * Gets the list from DBUserDao
+     * @return returns list of titles
+     */
     public List<Title> getList() {
         userService = new UserService(dbUserDao);
         List<Title> titleList = new ArrayList<>();
@@ -31,14 +44,22 @@ public class TitleListService {
         }
         return titleList;
     }
-
+    
+    /**
+     * Gets the list of titles from DBUserDao and reverses it
+     * @return returns reversed list of titles
+     */
     public List<Title> getTitleListReversed() {
         List<Title> titleList = getList();
         Collections.sort(titleList);
         Collections.reverse(titleList);
-        return titleList;
+        return titleList;       
     }
-
+    
+    /**
+     * Gets a list of titles from DBTitleDao and makes it into a ObservableList-type list
+     * @return returns ObservableList-type variable
+     */
     public ObservableList<Title> getObservableTitles() {
         ObservableList<Title> obsTitleList = FXCollections.observableArrayList();
         obsTitleList.addAll(getList());

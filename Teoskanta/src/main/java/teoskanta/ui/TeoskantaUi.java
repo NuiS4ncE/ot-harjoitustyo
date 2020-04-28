@@ -10,7 +10,7 @@ import teoskanta.domain.UserService;
 import teoskanta.user.dao.DBUserDao;
 import teoskanta.title.dao.DBTitleDao;
 
-/*
+/**
 * Main graphical user interface class for the app
  */
 public class TeoskantaUi extends Application {
@@ -24,7 +24,7 @@ public class TeoskantaUi extends Application {
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
 
-    /*
+    /**
     * Method to start the graphical user interface of the application 
     * @param primaryStage Stage-type variable to set the main stage
      */
@@ -51,7 +51,7 @@ public class TeoskantaUi extends Application {
         closeRequest(primaryStage);
     }
 
-    /*
+    /**
     * Method to check if the user is logged in and to clear the user object of values
     * @param stage Stage-type variable for setting the close request
      */
@@ -66,7 +66,7 @@ public class TeoskantaUi extends Application {
             Platform.exit();
         });
     }
-    /*
+    /**
     * Main method to launch the app
     */
     public static void main(String[] args) {

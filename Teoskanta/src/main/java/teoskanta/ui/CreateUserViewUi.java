@@ -15,9 +15,9 @@ import teoskanta.domain.UserService;
 import teoskanta.title.dao.DBTitleDao;
 import teoskanta.user.dao.DBUserDao;
 
-/*
-* Class to create the user creation view for graphical user interface
-*/
+/**
+ * Class to create the user creation view for graphical user interface
+ */
 public class CreateUserViewUi {
 
     private Scene newUserScene;
@@ -30,21 +30,22 @@ public class CreateUserViewUi {
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
-    
-    /*
-    * Constructor for user creation ui class
-    */
+
+    /**
+     * Constructor for user creation ui class
+     */
     public CreateUserViewUi() {
 
     }
-    
-    /*
-    * Handles the ui side of user creation 
-    * @param loginMessage Label-type variable
-    * @param primaryStage Stage-type variable used for scene switching 
-    * @parma loginError Label-type variable for login error messages
-    */
-    public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) throws SQLException{
+
+    /**
+     * Handles the ui side of user creation
+     *
+     * @param loginMessage Label-type variable
+     * @param primaryStage Stage-type variable used for scene switching
+     * @parma loginError Label-type variable for login error messages
+     */
+    public Scene createUser(Label loginMessage, Stage primaryStage, Label loginErrorMessage) throws SQLException {
         userDao = new DBUserDao();
         userService = new UserService(userDao);
         sceneSwitcherUi = new SceneSwitcherUi(primaryStage);

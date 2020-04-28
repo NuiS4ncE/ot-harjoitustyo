@@ -1,5 +1,9 @@
 package teoskanta.domain;
 
+/**
+ * User class for user creation
+ * 
+ */
 public class User {
 
     private String username;

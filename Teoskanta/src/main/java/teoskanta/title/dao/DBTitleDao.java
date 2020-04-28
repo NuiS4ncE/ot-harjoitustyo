@@ -13,17 +13,29 @@ import teoskanta.domain.User;
 import teoskanta.user.dao.UserDao;
 import teoskanta.domain.Title;
 
+/**
+ * Class to handle SQL querys
+ * 
+ */
 public class DBTitleDao implements TitleDao<Title, Integer> {
 
     private Connection connection;
     private PreparedStatement stmt;
     private Statement stat;
-
+    
+    /**
+     * Sets up connection to db
+     * @throws SQLException 
+     */
     private void startConn() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         stat = connection.createStatement();
     }
-
+    
+    /**
+     * Closes connection to db
+     * @throws SQLException 
+     */
     private void closeConn() throws SQLException {
         stat.close();
         connection.close();

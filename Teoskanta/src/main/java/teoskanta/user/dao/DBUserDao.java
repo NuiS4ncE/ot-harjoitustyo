@@ -11,17 +11,30 @@ public class DBUserDao implements UserDao<User, Integer> {
     private Statement stat;
     private PreparedStatement stmt;
 
+    /**
+     * Sets up connection to db
+     *
+     * @throws SQLException
+     */
     private void startConn() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         stat = connection.createStatement();
     }
 
+    /**
+     * Closes connection to db
+     *
+     * @throws SQLException
+     */
     private void closeConn() throws SQLException {
         stat.close();
         stmt.close();
         connection.close();
     }
 
+    /**
+     * Checks that database file and table exists  
+     */
     public void checkDBFile() {
         // check if database file exists
         String userTable = "CREATE TABLE IF NOT EXISTS Users ("
@@ -39,7 +52,14 @@ public class DBUserDao implements UserDao<User, Integer> {
             System.out.println("Databasecheck producer an error: " + e);
         }
     }
-
+    
+    /**
+     * Checks database for userid
+     * @param username String-type input username 
+     * @param password String-type input password
+     * @return returns userid
+     * @throws SQLException 
+     */
     public int getUserIdFromDB(String username, String password) throws SQLException {
         int id;
         startConn();
@@ -58,7 +78,12 @@ public class DBUserDao implements UserDao<User, Integer> {
         closeConn();
         return id;
     }
-
+    
+    /**
+     * Creates user to database
+     * @param user User-type input
+     * @throws SQLException 
+     */
     @Override
     public void create(User user) throws SQLException {
         startConn();
@@ -90,7 +115,14 @@ public class DBUserDao implements UserDao<User, Integer> {
 
         return u;
     }
-
+    
+    /**
+     * Method to find user from database
+     * @param username String-type variable username
+     * @param password String-type variable password
+     * @return returns true if given input trings are same as received strings from database false if not
+     * @throws SQLException 
+     */
     public Boolean findUser(String username, String password) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("SELECT username, password FROM Users WHERE username = ? AND password = ?");

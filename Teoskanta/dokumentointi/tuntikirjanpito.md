@@ -8,4 +8,5 @@
 | 7.4. | 8 | teoksen luonti ja tietokannan määrittely jatkunut |
 | 20.4. | 8 | GUIn ja tietokannan säätämistä teoksen lisäyksen ja listaamisen suhteen |
 | 21.4. | 6 | testien kirjoittelua ja hienosäätöä |
-| yht | 31 | |
+| 28.4. | 10 | javadocien, koodikatselmoinnin, arkkitehtuurikuvauksen ja käyttöohjeen kirjoittaminen |
+| yht | 41 | |

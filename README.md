@@ -3,7 +3,8 @@
 University of Helsinki department of Computer Science exercise on the course Ohjelmointitekniikka. 
 <br></br>
 [vaatimusmaarittely.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/vaatimusmaarittely.md) <br> </br>
-[tuntikirjanpito.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/tuntikirjanpito.md)
+[tuntikirjanpito.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/tuntikirjanpito.md) <br> </br>
+[arkkitehtuurikuvaus.md](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/arkkitehtuurikuvaus.md)
 
 ## Teoskanta
 

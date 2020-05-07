@@ -9,4 +9,5 @@
 | 20.4. | 8 | GUIn ja tietokannan säätämistä teoksen lisäyksen ja listaamisen suhteen |
 | 21.4. | 6 | testien kirjoittelua ja hienosäätöä |
 | 28.4. | 10 | javadocien, koodikatselmoinnin, arkkitehtuurikuvauksen ja käyttöohjeen kirjoittaminen |
-| yht | 41 | |
+| 6.5.| 8 | sovellukseen kategorioiden lisääminen ja niiden filtteröinnin käsittely
+| yht | 49 | |

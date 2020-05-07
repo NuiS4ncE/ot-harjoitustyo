@@ -15,7 +15,7 @@ import teoskanta.user.dao.DBUserDao;
 
 /**
  * Class for getting title lists from titleDao
- * 
+ *
  */
 public class TitleListService {
 
@@ -23,18 +23,20 @@ public class TitleListService {
     private UserService userService;
     private DBUserDao dbUserDao;
     private User user;
-    
+
     /**
      * Constructor for class
-     * @param dbtitleDao2 DBTitleDao-type variable to construct the class with Dao class input 
+     *
+     * @param dbtitleDao2 DBTitleDao-type variable to construct the class with
+     * Dao class input
      */
     public TitleListService(DBTitleDao dbtitleDao2) {
         this.dbTitleDao = dbtitleDao2;
     }
-    
-    
+
     /**
      * Gets the list from DBUserDao
+     *
      * @return returns list of titles
      */
     public List<Title> getList() {
@@ -47,20 +49,23 @@ public class TitleListService {
         }
         return titleList;
     }
-    
+
     /**
      * Gets the list of titles from DBUserDao and reverses it
+     *
      * @return returns reversed list of titles
      */
     public List<Title> getTitleListReversed() {
         List<Title> titleList = getList();
         Collections.sort(titleList);
         Collections.reverse(titleList);
-        return titleList;       
+        return titleList;
     }
-    
+
     /**
-     * Gets a list of titles from DBTitleDao and makes it into a ObservableList-type list
+     * Gets a list of titles from DBTitleDao and makes it into a
+     * ObservableList-type list
+     *
      * @return returns ObservableList-type variable
      */
     public ObservableList<Title> getObservableTitles() {
@@ -68,15 +73,26 @@ public class TitleListService {
         obsTitleList.addAll(getList());
         return obsTitleList;
     }
-    
+
+    public ObservableList<Title> getObservableTitles(String category) {
+        ObservableList<Title> obsTitleList = FXCollections.observableArrayList();
+        try {
+            obsTitleList.addAll(dbTitleDao.getListByCategory(userService.getUserId(), category));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obsTitleList;
+    }
+
     public ObservableList<String> getObservableCategories() {
+        userService = new UserService(dbUserDao);
         List<String> categoryList = new ArrayList<>();
-        try{
+        try {
             categoryList = dbTitleDao.getCategoryList(userService.getUserId());
         } catch (Exception e) {
             System.out.println("Category list retrieval had problems: " + e);
-        }   
-        
+        }
+
         return FXCollections.observableArrayList(categoryList);
     }
 

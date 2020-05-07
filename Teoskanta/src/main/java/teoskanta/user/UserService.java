@@ -50,13 +50,13 @@ public class UserService {
      * @return returns true if user is found from db and false if not
      */
     public boolean login(String username, String password) {
-        System.out.println(username + " " + password);
-        System.out.println("Now we're in userService-class");
+        //System.out.println(username + " " + password);
+        //System.out.println("Now we're in userService-class");
         int id;
         try {
             if (dbUserDao.findUser(username, password)) {
                 id = dbUserDao.getUserIdFromDB(username, password);
-                System.out.println("this is the id: " + id);
+                //System.out.println("this is the id: " + id);
                 loggedIn.setId(id);
                 loggedIn.setUsername(username);
                 loggedIn.setPassword(password);
@@ -100,7 +100,7 @@ public class UserService {
 
     public int getUserId() {
         int id = 0;
-        System.out.println("This is the loggedin id: " + loggedIn.getId());
+        //System.out.println("This is the loggedin id: " + loggedIn.getId());
         id = loggedIn.getId();
         return id;
     }

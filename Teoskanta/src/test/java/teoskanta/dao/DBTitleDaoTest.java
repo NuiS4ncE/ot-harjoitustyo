@@ -48,14 +48,14 @@ public class DBTitleDaoTest {
         User user = new User("test", "1234");
         userDao.create(user);
         userService.login(user.getUsername(), user.getPassword());
-        Title title = new Title("testbook", "test", "1234", userService.getUserId());
+        Title title = new Title("testbook", "test", "1234", "sdasds", userService.getUserId());
         DBTitleDao.create(title, title.getUserId());
         assertTrue(DBTitleDao.findTitle(title, userService.getLoggedInUser().getId()));
     }
 
     @Test
     public void deleteTitle() throws Exception {
-        Title title = new Title("testbookzx", "testxz", "1234zx", userService.getUserId());
+        Title title = new Title("testbookzx", "testxz", "1234zx", "tesststst",userService.getUserId());
         DBTitleDao.delete(title, userService.getUserId());
         assertFalse(DBTitleDao.findTitle(title, userService.getUserId()));
     }
@@ -65,7 +65,7 @@ public class DBTitleDaoTest {
         User user = new User("testink", "12344141");
         userDao.create(user);
         userService.login(user.getUsername(), user.getPassword());
-        Title title = new Title("testbookof", "testof", "1234of", userService.getUserId());
+        Title title = new Title("testbookof", "testof", "1234of", "sadsdas", userService.getUserId());
         DBTitleDao.create(title, title.getUserId());
         assertTrue(DBTitleDao.findTitle(title));
     }
@@ -75,7 +75,7 @@ public class DBTitleDaoTest {
         User user = new User("testef", "1234efef");
         userDao.create(user);
         userService.login(user.getUsername(), user.getPassword());
-        Title title = new Title("testbookas", "testas", "1234as", userService.getUserId());        
+        Title title = new Title("testbookas", "testas", "1234as", "dadasds", userService.getUserId());        
         DBTitleDao.create(title, userService.getUserId());
         List<Title> actual = Arrays.asList(title);
         //assertThat(actual, is(DBTitleDao.list(userService.getUserId())));
@@ -87,7 +87,7 @@ public class DBTitleDaoTest {
         User user = new User("test2112", "12213234");
         userDao.create(user);
         userService.login(user.getUsername(), user.getPassword());
-        Title title = new Title("testbookdads", "tsdsadest", "asdsa1234", userService.getUserId());
+        Title title = new Title("testbookdads", "tsdsadest", "asdsa1234","dasdsdf", userService.getUserId());
         DBTitleDao.create(title, title.getUserId());
         assertNull(DBTitleDao.read(title, title.getUserId()));
     }
@@ -97,7 +97,7 @@ public class DBTitleDaoTest {
         User user = new User("test2112ds", "sda12213234");
         userDao.create(user);
         userService.login(user.getUsername(), user.getPassword());
-        Title title = new Title("testbdsdsookdads", "sadsatsdsadest", "sadasdsa1234", userService.getUserId());
+        Title title = new Title("testbdsdsookdads", "sadsatsdsadest", "sadasdsa1234", "sadsd", userService.getUserId());
         DBTitleDao.create(title, userService.getUserId());
         assertNull(DBTitleDao.read(title, title.getUserId()));
         

@@ -11,6 +11,7 @@ public class Title implements Comparable<Title> {
     private String name;
     private String genre;
     private String author;
+    public String category;
     private DBUserDao userdao;
     
     /**
@@ -20,11 +21,12 @@ public class Title implements Comparable<Title> {
     * @param year String-type variable for year input
     * @param userid int-type variable for userid input
     */
-    public Title(String name, String author, String year, int userid) {
+    public Title(String name, String author, String year, String category, int userid) {
         this.name = name;
         this.userid = userid;
         this.author = author;
         this.year = year;
+        this.category = category;
     }
     
     /**
@@ -35,12 +37,13 @@ public class Title implements Comparable<Title> {
     * @param year String-type variable for year input
     * @param userid int-type variable for userid input
     */
-    public Title(int id, String name, String author, String year, int userid) {
+    public Title(int id, String name, String author, String year, String category, int userid) {
         this.id = id;
         this.name = name;
         this.userid = userid;
         this.author = author;
         this.year = year;
+        this.category = category;
     }
     
     /**
@@ -87,6 +90,10 @@ public class Title implements Comparable<Title> {
 
     public int getUserId() {
         return this.userid;
+    }
+    
+    public String getCategory() {
+        return this.category;
     }
 
     @Override

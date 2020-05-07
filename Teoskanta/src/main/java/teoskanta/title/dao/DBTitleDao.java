@@ -15,26 +15,28 @@ import teoskanta.title.Title;
 
 /**
  * Class to handle SQL querys
- * 
+ *
  */
 public class DBTitleDao implements TitleDao<Title, Integer> {
 
     private Connection connection;
     private PreparedStatement stmt;
     private Statement stat;
-    
+
     /**
      * Sets up connection to db
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     private void startConn() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:database.db");
         stat = connection.createStatement();
     }
-    
+
     /**
      * Closes connection to db
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     private void closeConn() throws SQLException {
         stat.close();
@@ -119,12 +121,13 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     public void create(Title title, Integer userid) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("INSERT INTO Titles"
-                + "(name, author, year, userid)"
-                + "VALUES (?,?,?,?)");
+                + "(name, author, year, category, userid)"
+                + "VALUES (?,?,?,?,?)");
         stmt.setString(1, title.getName());
         stmt.setString(2, title.getAuthor());
         stmt.setString(3, title.getYear());
-        stmt.setInt(4, userid);
+        stmt.setString(4, title.getCategory());
+        stmt.setInt(5, userid);
         stmt.executeUpdate();
         closeConn();
     }
@@ -179,17 +182,17 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.setInt(1, userid);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            titleList.add(new Title(rs.getInt("id"), rs.getString("name"), rs.getString("author"), rs.getString("year"), rs.getInt("userid")));
+            titleList.add(new Title(rs.getInt("id"), rs.getString("name"), rs.getString("author"), rs.getString("year"), rs.getString("category"), rs.getInt("userid")));
         }
         stmt.close();
         closeConn();
         return titleList;
     }
-    
+
     public List<String> getCategoryList(Integer userid) throws SQLException {
         startConn();
         List<String> categoryList = new ArrayList<>();
-        stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ?");
+        stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ? GROUP BY category");
         stmt.setInt(1, userid);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -200,4 +203,18 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         return categoryList;
     }
 
+    public List<Title> getListByCategory(Integer userid, String category) throws SQLException {
+        startConn();
+        List<Title> categoryList = new ArrayList<>();
+        stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ? AND category = ?");
+        stmt.setInt(1, userid);
+        stmt.setString(2, category);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            categoryList.add(new Title(rs.getString("name"), rs.getString("author"), rs.getString("year"), rs.getString("category"), userid));
+        }
+        stmt.close();
+        closeConn();
+        return categoryList;
+    }
 }

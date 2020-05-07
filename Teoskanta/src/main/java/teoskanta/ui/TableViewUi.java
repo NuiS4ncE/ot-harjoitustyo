@@ -70,19 +70,30 @@ public class TableViewUi {
         TableColumn<Title, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
-        
+
         TableColumn<Title, String> authorColumn = new TableColumn<>("Author");
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         authorColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
-        
+
         TableColumn<Title, String> yearColumn = new TableColumn<>("Year");
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
         yearColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
-        
-        titleTable.setItems(titleListService.getObservableTitles());
         titleTable.getColumns().addAll(Arrays.asList(nameColumn, authorColumn, yearColumn));
-        
-        
+
+        ComboBox<String> comboFilter = comboBoxFilter();
+
+        if (comboFilter.getValue().equals("All")) {
+            titleTable.setItems(titleListService.getObservableTitles());
+        }
+
+        comboFilter.setOnAction(e -> {
+            if (comboFilter.getValue().equals("All")) {
+                titleTable.setItems(titleListService.getObservableTitles());
+            } else {
+                titleTable.setItems(titleListService.getObservableTitles(comboFilter.getValue()));
+            }
+        });
+
         VBox vbox = new VBox(titleTable);
         HBox topPane = new HBox(10);
         HBox createForm = new HBox(10);
@@ -96,26 +107,40 @@ public class TableViewUi {
         TextField newYearInput = new TextField();
         newYearInput.setPromptText("year");
         Button logoutButton = new Button("logout");
-        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, comboBoxSetUp(), createTitle, deleteTitle);
-        topPane.getChildren().addAll(logoutButton);
-        
+        ComboBox<String> comboAdd = comboBoxAdd();
+        createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, comboAdd, createTitle, deleteTitle);
+        topPane.getChildren().addAll(logoutButton, comboFilter);
+
         borderPane.setTop(topPane);
         borderPane.setCenter(vbox);
         borderPane.setBottom(createForm);
         tableViewScene = new Scene(borderPane);
 
         createTitle.setOnAction(e -> {
-            titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText());
-            newTitleInput.setText("");
-            newAuthorInput.setText("");
-            newYearInput.setText("");
-            primaryStage.setScene(buildScene(stageTitle));
+            if (comboAdd.getValue() != null) {
+                titleService.createTitle(newTitleInput.getText(), newAuthorInput.getText(), newYearInput.getText(), comboAdd.getValue());
+                newTitleInput.setText("");
+                newAuthorInput.setText("");
+                newYearInput.setText("");
+
+                //primaryStage.setScene(buildScene(stageTitle));
+                if (comboFilter.getValue().equals("All")) {
+                    titleTable.setItems(titleListService.getObservableTitles());
+                    comboAdd.setValue("");
+                } else {
+                    titleTable.setItems(titleListService.getObservableTitles(comboFilter.getValue()));
+                    comboAdd.setValue("");
+                }
+
+            }
         });
 
         deleteTitle.setOnAction(e -> {
-            Title selectedItem = titleTable.getSelectionModel().getSelectedItem();
-            titleTable.getItems().remove(selectedItem);
-            titleService.deleteTitle(selectedItem);
+            if (titleTable.getSelectionModel().getSelectedItem() != null) {
+                Title selectedItem = titleTable.getSelectionModel().getSelectedItem();
+                titleTable.getItems().remove(selectedItem);
+                titleService.deleteTitle(selectedItem);
+            }
         });
 
         /*borderPane.setTop(logoutButton);
@@ -129,16 +154,25 @@ public class TableViewUi {
         return tableViewScene;
     }
 
-    public ComboBox<String> comboBoxSetUp() {
+    public ComboBox<String> comboBoxAdd() {
         dbTitleDao = new DBTitleDao();
         titleListService = new TitleListService(dbTitleDao);
-        ComboBox<String> chooseBox = new ComboBox<>(titleListService.getObservableCategories());
-        chooseBox.autosize();
-        chooseBox.setEditable(true);
-        chooseBox.setPromptText("category");
-        //chooseBox.setOnAction(e -> ));
-        
-        return chooseBox;
+        ComboBox<String> comboBox = new ComboBox<>(titleListService.getObservableCategories());
+        comboBox.setEditable(true);
+
+        return comboBox;
+    }
+
+    public ComboBox<String> comboBoxFilter() {
+        dbTitleDao = new DBTitleDao();
+        titleListService = new TitleListService(dbTitleDao);
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().add("All");
+        comboBox.getItems().addAll(titleListService.getObservableCategories());
+        comboBox.setEditable(false);
+        comboBox.setValue("All");
+
+        return comboBox;
     }
 
 }

@@ -41,11 +41,11 @@ public class TitleService {
      * @param year String-type input year
      * @return 
      */
-    public boolean createTitle(String name, String author, String year) {
+    public boolean createTitle(String name, String author, String year, String category) {
         dbUserDao = new DBUserDao();
         userService = new UserService(dbUserDao);
-        System.out.println(name + " " + author + " " + year + " " + userService.getUserId());
-        title = new Title(name, author, year, userService.getUserId());
+        System.out.println(name + " " + author + " " + year + " " + userService.getUserId() + " " + category);
+        title = new Title(name, author, year, category, userService.getUserId());
         try {
             dbTitleDao.create(title, title.getUserId());
             if (dbTitleDao.findTitle(title, title.getUserId())) {
@@ -70,7 +70,7 @@ public class TitleService {
         userService = new UserService(dbUserDao);
         int userid;
         userid = userService.getLoggedInUser().getId();
-        System.out.println("USERID IS: " + userid + " AND " + userService.getUserId());
+        //System.out.println("USERID IS: " + userid + " AND " + userService.getUserId());
         try {
             dbTitleDao.delete(title, userid);
             System.out.println(dbTitleDao.findTitle(title, userid));

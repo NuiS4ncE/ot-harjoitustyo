@@ -49,7 +49,7 @@ public class DBUserDao implements UserDao<User, Integer> {
             System.out.println("A new database has been created or checked.");
             closeConn();
         } catch (Exception e) {
-            System.out.println("Databasecheck producer an error: " + e);
+            System.out.println("Database check produced an error: " + e);
         }
     }
     

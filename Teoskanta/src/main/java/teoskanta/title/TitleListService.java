@@ -68,5 +68,16 @@ public class TitleListService {
         obsTitleList.addAll(getList());
         return obsTitleList;
     }
+    
+    public ObservableList<String> getObservableCategories() {
+        List<String> categoryList = new ArrayList<>();
+        try{
+            categoryList = dbTitleDao.getCategoryList(userService.getUserId());
+        } catch (Exception e) {
+            System.out.println("Category list retrieval had problems: " + e);
+        }   
+        
+        return FXCollections.observableArrayList(categoryList);
+    }
 
 }

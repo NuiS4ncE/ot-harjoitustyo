@@ -35,22 +35,22 @@ public class SceneSwitcherUi {
     /**
      * Method to switch to login screen
      */
-    public Scene switchToLogin() {
-        return loginViewUi.buildScene();
+    public Scene switchToLogin(String stageTitle) {
+        return loginViewUi.buildScene(stageTitle);
     }
 
     /**
      * Method to switch to main screen
      */
-    public Scene SwitchToMain() {
-        return mainViewUi.buildScene();
+    public Scene SwitchToMain(String stageTitle) {
+        return mainViewUi.buildScene(stageTitle);
     }
 
     /**
      * Method to switch to the listing tableview
      */
-    public Scene switchToTableView() {
-        return tableViewUi.buildScene();
+    public Scene switchToTableView(String stageTitle) {
+        return tableViewUi.buildScene(stageTitle);
     }
 
 }

@@ -37,6 +37,7 @@ public class LoginViewUi {
     private Stage primaryStage;
     private CreateUserViewUi createUserView;
     private SceneSwitcherUi sceneSwitcherUi;
+    private String mainTitle = "Teoskanta - Main";
 
     /**
      * Constructor for login ui
@@ -48,7 +49,8 @@ public class LoginViewUi {
     /**
      * Method to build the login ui scene
      */
-    public Scene buildScene() {
+    public Scene buildScene(String stageTitle) {
+        primaryStage.setTitle(stageTitle);
         userDao = new DBUserDao();
         titleDao = new DBTitleDao();
         titleService = new TitleService(titleDao);
@@ -63,7 +65,9 @@ public class LoginViewUi {
         TextField usernameInput = new TextField();
         usernameInput.setAlignment(Pos.TOP_CENTER);
         Label loginLabel2 = new Label("password");
+        
         TextField passwordInput = new TextField();
+        passwordInput.setAlignment(Pos.TOP_CENTER);
 
         inputPane.getChildren().addAll(loginLabel, usernameInput, loginLabel2, passwordInput);
         Label loginMessage = new Label();
@@ -78,7 +82,8 @@ public class LoginViewUi {
             if (userService.login(username, password)) {
                 System.out.println(username + " " + password + " " + userService.login(username, password));
                 loginMessage.setText("");
-                primaryStage.setScene(sceneSwitcherUi.switchToTableView());
+                //primaryStage.setScene(sceneSwitcherUi.SwitchToMain(mainTitle));
+                primaryStage.setScene(sceneSwitcherUi.switchToTableView("Table"));
                 usernameInput.setText("");
                 passwordInput.setText("");
                 titleService.checkDatabase();

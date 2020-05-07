@@ -48,6 +48,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
                 + "`name` TEXT,"
                 + "`author` TEXT,"
                 + "`year` TEXT,"
+                + "`category` TEXT,"
                 + "`userid` INTEGER);";
         startConn();
         stat.executeUpdate(titleTable);
@@ -183,6 +184,20 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.close();
         closeConn();
         return titleList;
+    }
+    
+    public List<String> getCategoryList(Integer userid) throws SQLException {
+        startConn();
+        List<String> categoryList = new ArrayList<>();
+        stmt = connection.prepareStatement("SELECT * FROM Titles WHERE userid = ?");
+        stmt.setInt(1, userid);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            categoryList.add(rs.getString("category"));
+        }
+        stmt.close();
+        closeConn();
+        return categoryList;
     }
 
 }

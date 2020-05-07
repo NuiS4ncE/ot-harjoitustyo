@@ -30,6 +30,7 @@ public class CreateUserViewUi {
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
+    private String loginTitle = "Teoskanta - Login";
 
     /**
      * Constructor for user creation ui class
@@ -83,7 +84,7 @@ public class CreateUserViewUi {
                 userCreationMessage.setText("");
                 loginMessage.setText("new user created");
                 loginMessage.setTextFill(Color.GREEN);
-                primaryStage.setScene(sceneSwitcherUi.switchToLogin());
+                primaryStage.setScene(sceneSwitcherUi.switchToLogin(loginTitle));
             } else {
                 userCreationMessage.setText("username has to be unique");
                 userCreationMessage.setTextFill(Color.RED);
@@ -96,4 +97,5 @@ public class CreateUserViewUi {
         return newUserScene = new Scene(createUserPane, 600, 250);
 
     }
+    
 }

@@ -23,6 +23,7 @@ public class TeoskantaUi extends Application {
     private DBUserDao userDao;
     private DBTitleDao titleDao;
     private SceneSwitcherUi sceneSwitcherUi;
+    private String loginTitle = "Teoskanta - Login";
 
     /**
     * Method to start the graphical user interface of the application 
@@ -41,7 +42,7 @@ public class TeoskantaUi extends Application {
         titleService.checkDatabase();
 
         // login scene
-        this.loginScene = sceneSwitcherUi.switchToLogin();
+        this.loginScene = sceneSwitcherUi.switchToLogin(loginTitle);
 
         // main scene
         // setup primary stage

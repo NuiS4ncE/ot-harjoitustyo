@@ -69,25 +69,32 @@ public class TableViewUi {
 
         TableColumn<Title, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        nameColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
+        
         TableColumn<Title, String> authorColumn = new TableColumn<>("Author");
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-
+        authorColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
+        
         TableColumn<Title, String> yearColumn = new TableColumn<>("Year");
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
-
+        yearColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
+        
         titleTable.setItems(titleListService.getObservableTitles());
         titleTable.getColumns().addAll(Arrays.asList(nameColumn, authorColumn, yearColumn));
-        titleTable.autosize();
+        
         
         VBox vbox = new VBox(titleTable);
         HBox topPane = new HBox(10);
         HBox createForm = new HBox(10);
+        createForm.setPadding(new Insets(10));
         Button createTitle = new Button("create");
         Button deleteTitle = new Button("delete");
         TextField newTitleInput = new TextField();
+        newTitleInput.setPromptText("title");
         TextField newAuthorInput = new TextField();
+        newAuthorInput.setPromptText("author");
         TextField newYearInput = new TextField();
+        newYearInput.setPromptText("year");
         Button logoutButton = new Button("logout");
         createForm.getChildren().addAll(newTitleInput, newAuthorInput, newYearInput, comboBoxSetUp(), createTitle, deleteTitle);
         topPane.getChildren().addAll(logoutButton);
@@ -127,9 +134,8 @@ public class TableViewUi {
         titleListService = new TitleListService(dbTitleDao);
         ComboBox<String> chooseBox = new ComboBox<>(titleListService.getObservableCategories());
         chooseBox.autosize();
-        //chooseBox.setEditable(false);
-        chooseBox.setBackground(new Background(new BackgroundFill(Color.rgb(225, 225, 225), new CornerRadii(30), null)));
-
+        chooseBox.setEditable(true);
+        chooseBox.setPromptText("category");
         //chooseBox.setOnAction(e -> ));
         
         return chooseBox;

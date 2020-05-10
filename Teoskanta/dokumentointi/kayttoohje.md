@@ -14,7 +14,7 @@ java -jar Teoskanta-1.0-SNAPSHOT.jar
 
 Kirjautumisikkuna on ensimmäinen ikkuna sovellusta käynnistäessä.
 
-<img src=>
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/loginscreen.png">
 
 Syöttämällä olemassa olevan käyttäjätunnuksen ja salasanan ohjelmaan pääsee kirjautumaan sisään painamalla _login_-painiketta. 
 
@@ -22,7 +22,7 @@ Syöttämällä olemassa olevan käyttäjätunnuksen ja salasanan ohjelmaan pä�
 
 Kirjautumisikkunasta pääsee käyttäjätunnuksen luontiin painamalla painiketta _create new user_.
 
-<img src=>
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/createuserscreen.png">
 
 Tekstikenttiin voi kirjoittaa haluamansa tunnuksen ja salasanan ja luonti onnistuu painamalla _create_. Tämän jälkeen siirrytään takaisin kirjautumissivulle. 
 Käyttäjätunnuksen luonnista voi mennä takaisin kirjautumis näkymään painikkeella _back_.
@@ -31,8 +31,16 @@ Käyttäjätunnuksen luonnista voi mennä takaisin kirjautumis näkymään paini
 
 Kirjautumisesta siirrytään päänäkymään, jossa voi lisätä, poistaa ja filtteröidä teoksia. 
 
-<img src=> 
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreen.png">
 
-Päänäkymässä uuden teoksen lisääminen onnistuu kirjoittamalla tiedot tekstikenttiin. Tekstikentät ovat järjestyksessä, teoksen nimi, tekijä ja kategoria. 
+Päänäkymässä uuden teoksen lisääminen onnistuu kirjoittamalla tiedot tekstikenttiin ja painamalla _create_-painiketta. Tekstikentät ovat järjestyksessä, teoksen nimi, tekijä ja kategoria. 
 
-<img src=>
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreencreated.png">
+
+Kategorioita voi filtteröidä luonnin ja listaamisen yhteydessä vetolaatikoilla
+
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreentest2.png">
+
+Teoksia voi poistaa valitsemalla teos listasta ja painamalla _delete_-painiketta.
+
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreenselect.png">

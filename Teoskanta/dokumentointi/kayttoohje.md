@@ -44,3 +44,5 @@ Kategorioita voi filtteröidä luonnin ja listaamisen yhteydessä vetolaatikoill
 Teoksia voi poistaa valitsemalla teos listasta ja painamalla _delete_-painiketta.
 
 <img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreenselect.png">
+
+Painamalla _logout_-painiketta palataan kirjautumisnäkymään. 

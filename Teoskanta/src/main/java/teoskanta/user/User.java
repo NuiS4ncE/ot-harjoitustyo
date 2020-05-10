@@ -1,7 +1,7 @@
 package teoskanta.user;
 
 /**
- * User class for user creation
+ * User class for user creation.
  *
  */
 public class User {
@@ -9,18 +9,32 @@ public class User {
     private String username;
     private String password;
     private int id;
-
+    
+    /**
+     * Constructor for class.
+     * @param username String-type variable for username input
+     * @param password String-type variable for password input
+     */
     public User(String username, String password) {
         this.password = password;
         this.username = username;
     }
-
+    
+    /**
+     * Constructor for class.
+     * @param id int-type variable for user id input
+     * @param username String-type variable for username input
+     * @param password String-type variable for password input
+     */
     public User(int id, String username, String password) {
         this.id = id;
         this.password = password;
         this.username = username;
     }
 
+    /**
+     * Empty constructor.
+     */
     public User() {
 
     }

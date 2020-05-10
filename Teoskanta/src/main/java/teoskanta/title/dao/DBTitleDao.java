@@ -14,7 +14,7 @@ import teoskanta.user.dao.UserDao;
 import teoskanta.title.Title;
 
 /**
- * Class to handle SQL querys
+ * Class to handle SQL queries.
  *
  */
 public class DBTitleDao implements TitleDao<Title, Integer> {
@@ -24,7 +24,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     private Statement stat;
 
     /**
-     * Sets up connection to db
+     * Sets up connection to db.
      *
      * @throws SQLException
      */
@@ -34,7 +34,7 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     }
 
     /**
-     * Closes connection to db
+     * Closes connection to db.
      *
      * @throws SQLException
      */
@@ -42,7 +42,11 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stat.close();
         connection.close();
     }
-
+    
+    /**
+     * Checks database if titles table exists.
+     * @throws Exception 
+     */
     public void checkDBForTitles() throws Exception {
         // check if database file exists
         String titleTable = "CREATE TABLE IF NOT EXISTS Titles ("
@@ -58,7 +62,14 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stat.close();
         connection.close();
     }
-
+    
+    /**
+     * Method for finding title in the database.
+     * @param title Title-type variable for title input
+     * @param userid int-type variable for userid input
+     * @return returns true if title in db matches the title-object
+     * @throws SQLException 
+     */
     public Boolean findTitle(Title title, int userid) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("SELECT name, author, year, userid FROM Titles WHERE name = ? AND author = ? AND year = ? AND userid = ?");
@@ -88,7 +99,13 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             return false;
         }
     }
-
+    
+    /**
+     * Method for finding title from database without userid.
+     * @param title Title-type variable for title input
+     * @return returns true if title in database matches the given title-object
+     * @throws SQLException 
+     */
     public Boolean findTitle(Title title) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("SELECT name, author, year FROM Titles WHERE name = ? AND author = ? AND year = ?");
@@ -116,7 +133,13 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
             return false;
         }
     }
-
+    
+    /**
+     * Method for adding title to database.
+     * @param title Title-type variable for title input
+     * @param userid int-type variable for userid input
+     * @throws SQLException 
+     */
     @Override
     public void create(Title title, Integer userid) throws SQLException {
         startConn();
@@ -131,7 +154,14 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.executeUpdate();
         closeConn();
     }
-
+    
+    /**
+     * Method for checking database for titles. DEPRECATED
+     * @param title Title-type variable for title input
+     * @param userid int-type variable for userid input
+     * @return returns null
+     * @throws SQLException 
+     */
     @Override
     public Title read(Title title, Integer userid) throws SQLException {
         startConn();
@@ -157,7 +187,12 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         closeConn();
         return null;
     }
-
+    /**
+     * Method for deleting title from database.
+     * @param title Title-type variable for title input
+     * @param userid int-type variable for userid input
+     * @throws SQLException 
+     */
     @Override
     public void delete(Title title, Integer userid) throws SQLException {
         startConn();
@@ -168,7 +203,13 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         stmt.close();
         closeConn();
     }
-
+    
+    /**
+     * Method for listing titles from database.
+     * @param userid int-type variable for userid input
+     * @return returns a List
+     * @throws SQLException 
+     */
     @Override
     public List<Title> list(Integer userid) throws SQLException {
         startConn();
@@ -183,7 +224,13 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         closeConn();
         return titleList;
     }
-
+    
+    /**
+     * Method for retrieving categories for a list. 
+     * @param userid int-type variable for userid input
+     * @return returns a List
+     * @throws SQLException 
+     */
     public List<String> getCategoryList(Integer userid) throws SQLException {
         startConn();
         List<String> categoryList = new ArrayList<>();
@@ -197,7 +244,14 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
         closeConn();
         return categoryList;
     }
-
+    
+    /**
+     * Method for getting a List by category.
+     * @param userid int-type variable for userid input
+     * @param category String-type variable for category input
+     * @return returns a List
+     * @throws SQLException 
+     */
     public List<Title> getListByCategory(Integer userid, String category) throws SQLException {
         startConn();
         List<Title> categoryList = new ArrayList<>();

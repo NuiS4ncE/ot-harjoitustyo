@@ -15,12 +15,13 @@ public class Title implements Comparable<Title> {
     private DBUserDao userdao;
 
     /**
-     * Constructor for Title class
+     * Constructor for Title class.
      *
      * @param name String-type variable for name input
      * @param author String-type variable for author input
      * @param year String-type variable for year input
      * @param userid int-type variable for userid input
+     * @param category String-type variable for category input
      */
     public Title(String name, String author, String year, String category, int userid) {
         this.name = name;
@@ -31,13 +32,14 @@ public class Title implements Comparable<Title> {
     }
 
     /**
-     * Constructor for Title class
+     * Constructor for Title class.
      *
      * @param id int-type variable for title id number input
      * @param name String-type variable for name input
      * @param author String-type variable for author input
      * @param year String-type variable for year input
      * @param userid int-type variable for userid input
+     * @param category String-type variable for category input
      */
     public Title(int id, String name, String author, String year, String category, int userid) {
         this.id = id;
@@ -49,7 +51,7 @@ public class Title implements Comparable<Title> {
     }
 
     /**
-     * Constructor for Title class
+     * Constructor for Title class.
      *
      * @param name String-type variable for name input
      * @param author String-type variable for author input
@@ -62,7 +64,7 @@ public class Title implements Comparable<Title> {
     }
 
     /**
-     * Empty constructor for Title class
+     * Empty constructor for Title class.
      */
     public Title() {
 

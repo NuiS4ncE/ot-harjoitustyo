@@ -12,7 +12,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     private PreparedStatement stmt;
 
     /**
-     * Sets up connection to db
+     * Sets up connection to db.
      *
      * @throws SQLException
      */
@@ -22,7 +22,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Closes connection to db
+     * Closes connection to db.
      *
      * @throws SQLException
      */
@@ -33,7 +33,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Checks that database file and table exists
+     * Checks that database file and table exists.
      */
     public void checkDBFile() {
         // check if database file exists
@@ -54,7 +54,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Checks database for userid
+     * Checks database for userid.
      *
      * @param username String-type input username
      * @param password String-type input password
@@ -81,7 +81,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Creates user to database
+     * Creates user to database.
      *
      * @param user User-type input
      * @throws SQLException
@@ -98,7 +98,13 @@ public class DBUserDao implements UserDao<User, Integer> {
         stmt.executeUpdate();
         closeConn();
     }
-
+    
+    /**
+     * Method for reading the database for Users. DEPRECATED
+     * @param key int-type variable for userid input
+     * @return returns User-object
+     * @throws SQLException 
+     */
     @Override
     public User read(Integer key) throws SQLException {
         startConn();
@@ -119,12 +125,12 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Method to find user from database
+     * Method to find user from database.
      *
      * @param username String-type variable username
      * @param password String-type variable password
-     * @return returns true if given input trings are same as received strings
-     * from database false if not
+     * @return returns true if given input Strings are same as received strings
+     * from database false if not.
      * @throws SQLException
      */
     public Boolean findUser(String username, String password) throws SQLException {

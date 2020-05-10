@@ -14,7 +14,7 @@ import teoskanta.user.UserService;
 import teoskanta.title.dao.DBTitleDao;
 
 /**
- * Class to handle different title actions between ui and Dao
+ * Class to handle different title actions between ui and Dao.
  *
  */
 public class TitleService {
@@ -27,7 +27,7 @@ public class TitleService {
     private TitleService titleService;
 
     /**
-     * Constructor for class
+     * Constructor for class-
      *
      * @param dbtitleDao DBTitleDao-type variable to construct the class with
      * Dao class input
@@ -37,12 +37,13 @@ public class TitleService {
     }
 
     /**
-     * Method to create a title
+     * Method to create a title.
      *
      * @param name String-type input name
      * @param author String-type input author
      * @param year String-type input year
-     * @return
+     * @param category String-type variable for category input
+     * @return returns true if after creation can find title from db
      */
     public boolean createTitle(String name, String author, String year, String category) {
         dbUserDao = new DBUserDao();
@@ -64,7 +65,7 @@ public class TitleService {
     }
 
     /**
-     * Method to delete title
+     * Method to delete title.
      *
      * @param title Title-type variable to delete the title
      * @return returns true if title was deleted successfully and false if not
@@ -91,7 +92,7 @@ public class TitleService {
     }
 
     /**
-     * Method to check that database exists
+     * Method to check that database exists.
      */
     public void checkDatabase() {
         try {

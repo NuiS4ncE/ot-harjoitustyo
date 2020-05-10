@@ -14,7 +14,7 @@ import teoskanta.title.dao.TitleDao;
 import teoskanta.user.dao.DBUserDao;
 
 /**
- * Class for getting title lists from titleDao
+ * Class for getting title lists from titleDao.
  *
  */
 public class TitleListService {
@@ -25,7 +25,7 @@ public class TitleListService {
     private User user;
 
     /**
-     * Constructor for class
+     * Constructor for class.
      *
      * @param dbtitleDao2 DBTitleDao-type variable to construct the class with
      * Dao class input
@@ -35,7 +35,7 @@ public class TitleListService {
     }
 
     /**
-     * Gets the list from DBUserDao
+     * Gets the list from DBUserDao.
      *
      * @return returns list of titles
      */
@@ -51,7 +51,7 @@ public class TitleListService {
     }
 
     /**
-     * Gets the list of titles from DBUserDao and reverses it
+     * Gets the list of titles from DBUserDao and reverses it.
      *
      * @return returns reversed list of titles
      */
@@ -64,7 +64,7 @@ public class TitleListService {
 
     /**
      * Gets a list of titles from DBTitleDao and makes it into a
-     * ObservableList-type list
+     * ObservableList-type list.
      *
      * @return returns ObservableList-type variable
      */
@@ -73,7 +73,12 @@ public class TitleListService {
         obsTitleList.addAll(getList());
         return obsTitleList;
     }
-
+    
+    /**
+     * Gets a list of titles with category input.
+     * @param category String-type variable for category input
+     * @return returns ObservableList-type variable
+     */
     public ObservableList<Title> getObservableTitles(String category) {
         ObservableList<Title> obsTitleList = FXCollections.observableArrayList();
         try {
@@ -83,7 +88,10 @@ public class TitleListService {
         }
         return obsTitleList;
     }
-
+    /**
+     * Gets a list of categories.
+     * @return returns ObservableList-type variable
+     */
     public ObservableList<String> getObservableCategories() {
         userService = new UserService(dbUserDao);
         List<String> categoryList = new ArrayList<>();

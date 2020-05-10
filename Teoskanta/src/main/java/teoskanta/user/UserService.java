@@ -5,7 +5,7 @@ import java.util.*;
 import teoskanta.user.dao.DBUserDao;
 
 /**
- * Class for handling actions between the user interface and DBUserDao
+ * Class for handling actions between the user interface and DBUserDao.
  *
  */
 public class UserService {
@@ -14,7 +14,7 @@ public class UserService {
     private User loggedIn;
 
     /**
-     * Constructor for class
+     * Constructor for class.
      *
      * @param userDao DBUserDao-type variable to construct the class with Dao
      * input
@@ -25,7 +25,7 @@ public class UserService {
     }
 
     /**
-     * Method to create a new user
+     * Method to create a new user.
      *
      * @param username String-type input username
      * @param password String-type input password
@@ -48,7 +48,7 @@ public class UserService {
 
     /**
      * Method to login by setting the username and password values for the
-     * username and checking db for user
+     * username and checking db for user.
      *
      * @param username String-type variable username
      * @param password String-type variable password
@@ -77,7 +77,7 @@ public class UserService {
     }
 
     /**
-     * Method to logout by setting User object to null
+     * Method to logout by setting User object to null.
      *
      * @return returns true if successful and false if not
      */
@@ -94,7 +94,7 @@ public class UserService {
     }
 
     /**
-     * Checks if database and user table exists
+     * Checks if database and user table exists.
      */
     public void checkDatabase() {
         try {
@@ -103,7 +103,11 @@ public class UserService {
             System.out.println("Database check or creation for users failed: " + e);
         }
     }
-
+    
+    /**
+     * Method for getting the user id from User-object.
+     * @return returns int-type variable id
+     */
     public int getUserId() {
         int id = 0;
         //System.out.println("This is the loggedin id: " + loggedIn.getId());

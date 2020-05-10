@@ -14,7 +14,7 @@ java -jar Teoskanta-1.0-SNAPSHOT.jar
 
 Kirjautumisikkuna on ensimmäinen ikkuna sovellusta käynnistäessä.
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/loginscreen.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/loginscreen.png" width="300">
 
 Syöttämällä olemassa olevan käyttäjätunnuksen ja salasanan ohjelmaan pääsee kirjautumaan sisään painamalla _login_-painiketta. 
 
@@ -22,7 +22,7 @@ Syöttämällä olemassa olevan käyttäjätunnuksen ja salasanan ohjelmaan pä�
 
 Kirjautumisikkunasta pääsee käyttäjätunnuksen luontiin painamalla painiketta _create new user_.
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/createuserscreen.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/createuserscreen.png" width="300">
 
 Tekstikenttiin voi kirjoittaa haluamansa tunnuksen ja salasanan ja luonti onnistuu painamalla _create_. Tämän jälkeen siirrytään takaisin kirjautumissivulle. 
 Käyttäjätunnuksen luonnista voi mennä takaisin kirjautumis näkymään painikkeella _back_.
@@ -31,18 +31,18 @@ Käyttäjätunnuksen luonnista voi mennä takaisin kirjautumis näkymään paini
 
 Kirjautumisesta siirrytään päänäkymään, jossa voi lisätä, poistaa ja filtteröidä teoksia. 
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreen.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreen.png" width="300">
 
 Päänäkymässä uuden teoksen lisääminen onnistuu kirjoittamalla tiedot tekstikenttiin ja painamalla _create_-painiketta. Tekstikentät ovat järjestyksessä, teoksen nimi, tekijä ja kategoria. 
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreencreated.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreencreated.png" width="300">
 
 Kategorioita voi filtteröidä luonnin ja listaamisen yhteydessä vetolaatikoilla
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreentest2.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreentest2.png" width="300">
 
 Teoksia voi poistaa valitsemalla teos listasta ja painamalla _delete_-painiketta.
 
-<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreenselect.png">
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreenselect.png" width="300">
 
 Painamalla _logout_-painiketta palataan kirjautumisnäkymään. 

@@ -27,7 +27,7 @@ Käyttöliittymä kutsuu servicejä, jotka käsittelevät tietokantaluokkia, tar
 
 Loogisen datamallin sovelluksessa muodostavat käyttäjää ja teoksia kuvaavat luokat Title ja User. 
 
-<img src=>
+<img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/logicaldatamodel.png" width="160">
 
 Toiminnallisuudesta vastaavat luokat UserService, TitleListService ja TitleService. Luokissa on käyttöliittymän toiminnoille omat metodit servicen mukaisesti liittyen joko teoksiin tai käyttäjätapahtumiin. 
 Esimerkkinä: 

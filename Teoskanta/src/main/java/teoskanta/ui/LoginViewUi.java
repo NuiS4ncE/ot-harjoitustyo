@@ -83,7 +83,7 @@ public class LoginViewUi {
                 System.out.println(username + " " + password + " " + userService.login(username, password));
                 loginMessage.setText("");
                 //primaryStage.setScene(sceneSwitcherUi.SwitchToMain(mainTitle));
-                primaryStage.setScene(sceneSwitcherUi.switchToTableView("Table"));
+                primaryStage.setScene(sceneSwitcherUi.switchToTableView(mainTitle));
                 usernameInput.setText("");
                 passwordInput.setText("");
                 titleService.checkDatabase();

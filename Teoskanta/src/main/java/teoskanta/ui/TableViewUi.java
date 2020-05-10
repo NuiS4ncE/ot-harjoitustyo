@@ -123,14 +123,15 @@ public class TableViewUi {
                 newAuthorInput.setText("");
                 newYearInput.setText("");
 
-                //primaryStage.setScene(buildScene(stageTitle));
-                if (comboFilter.getValue().equals("All")) {
-                    titleTable.setItems(titleListService.getObservableTitles());
-                    comboAdd.setValue("");
-                } else {
-                    titleTable.setItems(titleListService.getObservableTitles(comboFilter.getValue()));
-                    comboAdd.setValue("");
-                }
+                
+                //if (comboFilter.getValue().equals("All")) {
+                //    titleTable.setItems(titleListService.getObservableTitles());
+                //    comboAdd.setValue("");
+                //} else {
+                //    titleTable.setItems(titleListService.getObservableTitles(comboFilter.getValue()));
+                //    comboAdd.setValue("");
+                //}
+                primaryStage.setScene(buildScene(stageTitle));
 
             }
         });
@@ -142,10 +143,6 @@ public class TableViewUi {
                 titleService.deleteTitle(selectedItem);
             }
         });
-
-        /*borderPane.setTop(logoutButton);
-        borderPane.getChildren().addAll(logoutButton);
-         */
         logoutButton.setOnAction(e -> {
             userService.logout();
             primaryStage.setScene(sceneSwitcherUi.switchToLogin(loginTitle));

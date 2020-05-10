@@ -25,11 +25,11 @@ Käyttöliittymä kutsuu servicejä, jotka käsittelevät tietokantaluokkia, tar
 
 ## Sovelluslogiikka 
 
-Loogisen datamallin sovelluksessa muodostavat käyttäjää ja teoksia kuvaavat luokat Title ja User. 
+Loogisen datamallin sovelluksessa muodostavat käyttäjää ja teoksia kuvaavat luokat [Title](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/title/Title.java) ja [User](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/user/User.java). 
 
 <img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/logicaldatamodel.png" width="500">
 
-Toiminnallisuudesta vastaavat luokat UserService, TitleListService ja TitleService. Luokissa on käyttöliittymän toiminnoille omat metodit servicen mukaisesti liittyen joko teoksiin tai käyttäjätapahtumiin. 
+Toiminnallisuudesta vastaavat luokat [UserService](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/user/UserService.java), [TitleListService](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/title/TitleListService.java) ja [TitleService](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/title/TitleService.java). Luokissa on käyttöliittymän toiminnoille omat metodit servicen mukaisesti liittyen joko teoksiin tai käyttäjätapahtumiin. 
 Esimerkkinä: 
  - boolean newUser(String username, String password)
  - boolean createTitle(String name, String author, String year, String category)

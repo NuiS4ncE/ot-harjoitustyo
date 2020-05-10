@@ -36,5 +36,5 @@ Esimerkkinä:
  - ObservableList<Title>getObservableTitles(String category)
  - boolean deleteTitle(Title title)
 
-TitleService ja TitleListService pakkauksessa teoskanta.title käyttävät tietokantaan tallennettuja tietoja pakkauksessa teoskanta.title.dao olevan DBTitleDaon kautta. 
-Pakkauksessa teoskanta.user oleva UserService taas käyttää tietoja pakkauksessa teoskanta.user.dao olevan DBUserDaon kautta. 
+TitleService ja TitleListService pakkauksessa [teoskanta.title](https://github.com/NuiS4ncE/ot-harjoitustyo/tree/master/Teoskanta/src/main/java/teoskanta/title) käyttävät tietokantaan tallennettuja tietoja pakkauksessa [teoskanta.title.dao](https://github.com/NuiS4ncE/ot-harjoitustyo/tree/master/Teoskanta/src/main/java/teoskanta/title/dao) olevan [DBTitleDaon](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/title/dao/DBTitleDao.java) kautta. 
+Pakkauksessa [teoskanta.user](https://github.com/NuiS4ncE/ot-harjoitustyo/tree/master/Teoskanta/src/main/java/teoskanta/user) oleva UserService taas käyttää tietoja pakkauksessa [teoskanta.user.dao](https://github.com/NuiS4ncE/ot-harjoitustyo/tree/master/Teoskanta/src/main/java/teoskanta/user/dao) olevan [DBUserDaon](https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/src/main/java/teoskanta/user/dao/DBUserDao.java) kautta. 

@@ -7,14 +7,13 @@ public interface UserDao<T, K> {
     
     /**
      * Method for title creation.
-     * @param object variable for parameter
-     * @param key variable for parameter
+     * @param object variable for parameter     
      * @throws SQLException 
      */
     void create(T object) throws SQLException;
     
     /**
-     * Method for reading database
+     * Method for reading database.
      * @param key variable for a parameter
      * @return returns object T
      * @throws SQLException 

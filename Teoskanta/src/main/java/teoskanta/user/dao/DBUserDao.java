@@ -54,11 +54,11 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Checks database for userid.
+     * Checks database for user id.
      *
      * @param username String-type input username
      * @param password String-type input password
-     * @return returns userid
+     * @return returns user id
      * @throws SQLException
      */
     public int getUserIdFromDB(String username, String password) throws SQLException {
@@ -129,8 +129,7 @@ public class DBUserDao implements UserDao<User, Integer> {
      *
      * @param username String-type variable username
      * @param password String-type variable password
-     * @return returns true if given input Strings are same as received strings
-     * from database false if not.
+     * @return returns true if given input Strings are same as received strings from database false if not.
      * @throws SQLException
      */
     public Boolean findUser(String username, String password) throws SQLException {

@@ -27,7 +27,7 @@ public class TitleService {
     private TitleService titleService;
 
     /**
-     * Constructor for class-
+     * Constructor for class.
      *
      * @param dbtitleDao DBTitleDao-type variable to construct the class with
      * Dao class input

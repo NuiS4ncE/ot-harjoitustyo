@@ -38,7 +38,7 @@ Päänäkymässä uuden teoksen lisääminen onnistuu kirjoittamalla tiedot teks
 
 <img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreencreated.png" width="700">
 
-Kategorioita voi filtteröidä luonnin ja listaamisen yhteydessä vetolaatikoilla
+Kategorioita voi filtteröidä luonnin ja listaamisen yhteydessä vetolaatikoilla.
 
 <img src="https://github.com/NuiS4ncE/ot-harjoitustyo/blob/master/Teoskanta/dokumentointi/images/mainscreentest2.png" width="700">
 

@@ -33,7 +33,7 @@ public class DBUserDao implements UserDao<User, Integer> {
     }
 
     /**
-     * Checks that database file and table exists  
+     * Checks that database file and table exists
      */
     public void checkDBFile() {
         // check if database file exists
@@ -52,13 +52,14 @@ public class DBUserDao implements UserDao<User, Integer> {
             System.out.println("Database check produced an error: " + e);
         }
     }
-    
+
     /**
      * Checks database for userid
-     * @param username String-type input username 
+     *
+     * @param username String-type input username
      * @param password String-type input password
      * @return returns userid
-     * @throws SQLException 
+     * @throws SQLException
      */
     public int getUserIdFromDB(String username, String password) throws SQLException {
         int id;
@@ -78,11 +79,12 @@ public class DBUserDao implements UserDao<User, Integer> {
         closeConn();
         return id;
     }
-    
+
     /**
      * Creates user to database
+     *
      * @param user User-type input
-     * @throws SQLException 
+     * @throws SQLException
      */
     @Override
     public void create(User user) throws SQLException {
@@ -115,13 +117,15 @@ public class DBUserDao implements UserDao<User, Integer> {
 
         return u;
     }
-    
+
     /**
      * Method to find user from database
+     *
      * @param username String-type variable username
      * @param password String-type variable password
-     * @return returns true if given input trings are same as received strings from database false if not
-     * @throws SQLException 
+     * @return returns true if given input trings are same as received strings
+     * from database false if not
+     * @throws SQLException
      */
     public Boolean findUser(String username, String password) throws SQLException {
         startConn();

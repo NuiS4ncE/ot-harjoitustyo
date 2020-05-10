@@ -65,7 +65,7 @@ public class LoginViewUi {
         TextField usernameInput = new TextField();
         usernameInput.setAlignment(Pos.TOP_CENTER);
         Label loginLabel2 = new Label("password");
-        
+
         TextField passwordInput = new TextField();
         passwordInput.setAlignment(Pos.TOP_CENTER);
 
@@ -82,7 +82,6 @@ public class LoginViewUi {
             if (userService.login(username, password)) {
                 System.out.println(username + " " + password + " " + userService.login(username, password));
                 loginMessage.setText("");
-                //primaryStage.setScene(sceneSwitcherUi.SwitchToMain(mainTitle));
                 primaryStage.setScene(sceneSwitcherUi.switchToTableView(mainTitle));
                 usernameInput.setText("");
                 passwordInput.setText("");

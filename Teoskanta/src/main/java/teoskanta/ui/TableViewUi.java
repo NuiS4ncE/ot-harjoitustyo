@@ -5,11 +5,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.*;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -77,6 +79,7 @@ public class TableViewUi {
 
         TableColumn<Title, String> yearColumn = new TableColumn<>("Year");
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
+
         yearColumn.prefWidthProperty().bind(titleTable.widthProperty().multiply(0.33));
         titleTable.getColumns().addAll(Arrays.asList(nameColumn, authorColumn, yearColumn));
 
@@ -123,7 +126,6 @@ public class TableViewUi {
                 newAuthorInput.setText("");
                 newYearInput.setText("");
 
-                
                 //if (comboFilter.getValue().equals("All")) {
                 //    titleTable.setItems(titleListService.getObservableTitles());
                 //    comboAdd.setValue("");

@@ -10,7 +10,6 @@ public class SceneSwitcherUi {
 
     private Stage primaryStage;
     private LoginViewUi loginViewUi;
-    private MainViewUi mainViewUi;
     private TableViewUi tableViewUi;
 
     /**
@@ -21,7 +20,6 @@ public class SceneSwitcherUi {
     public SceneSwitcherUi(Stage primStage) {
         this.primaryStage = primStage;
         loginViewUi = new LoginViewUi(primaryStage);
-        mainViewUi = new MainViewUi(primaryStage);
         tableViewUi = new TableViewUi(primaryStage);
     }
 
@@ -37,13 +35,6 @@ public class SceneSwitcherUi {
      */
     public Scene switchToLogin(String stageTitle) {
         return loginViewUi.buildScene(stageTitle);
-    }
-
-    /**
-     * Method to switch to main screen
-     */
-    public Scene SwitchToMain(String stageTitle) {
-        return mainViewUi.buildScene(stageTitle);
     }
 
     /**

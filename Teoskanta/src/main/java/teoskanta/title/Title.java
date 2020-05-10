@@ -13,14 +13,15 @@ public class Title implements Comparable<Title> {
     private String author;
     public String category;
     private DBUserDao userdao;
-    
+
     /**
-    * Constructor for Title class 
-    * @param name String-type variable for name input
-    * @param author String-type variable for author input
-    * @param year String-type variable for year input
-    * @param userid int-type variable for userid input
-    */
+     * Constructor for Title class
+     *
+     * @param name String-type variable for name input
+     * @param author String-type variable for author input
+     * @param year String-type variable for year input
+     * @param userid int-type variable for userid input
+     */
     public Title(String name, String author, String year, String category, int userid) {
         this.name = name;
         this.userid = userid;
@@ -28,15 +29,16 @@ public class Title implements Comparable<Title> {
         this.year = year;
         this.category = category;
     }
-    
+
     /**
-    * Constructor for Title class 
-    * @param id int-type variable for title id number input
-    * @param name String-type variable for name input
-    * @param author String-type variable for author input
-    * @param year String-type variable for year input
-    * @param userid int-type variable for userid input
-    */
+     * Constructor for Title class
+     *
+     * @param id int-type variable for title id number input
+     * @param name String-type variable for name input
+     * @param author String-type variable for author input
+     * @param year String-type variable for year input
+     * @param userid int-type variable for userid input
+     */
     public Title(int id, String name, String author, String year, String category, int userid) {
         this.id = id;
         this.name = name;
@@ -45,21 +47,23 @@ public class Title implements Comparable<Title> {
         this.year = year;
         this.category = category;
     }
-    
+
     /**
-    * Constructor for Title class 
-    * @param name String-type variable for name input
-    * @param author String-type variable for author input
-    * @param user User-type variable for user object input
-    */
+     * Constructor for Title class
+     *
+     * @param name String-type variable for name input
+     * @param author String-type variable for author input
+     * @param user User-type variable for user object input
+     */
     public Title(String name, String author, User user) {
         this.name = name;
         this.author = author;
         this.userid = user.getId();
     }
+
     /**
-    * Empty constructor for Title class
-    */
+     * Empty constructor for Title class
+     */
     public Title() {
 
     }
@@ -91,7 +95,7 @@ public class Title implements Comparable<Title> {
     public int getUserId() {
         return this.userid;
     }
-    
+
     public String getCategory() {
         return this.category;
     }

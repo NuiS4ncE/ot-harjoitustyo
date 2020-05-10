@@ -159,11 +159,6 @@ public class DBTitleDao implements TitleDao<Title, Integer> {
     }
 
     @Override
-    public Title update(Title object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void delete(Title title, Integer userid) throws SQLException {
         startConn();
         stmt = connection.prepareStatement("DELETE FROM Titles WHERE id = ? AND userid = ?");

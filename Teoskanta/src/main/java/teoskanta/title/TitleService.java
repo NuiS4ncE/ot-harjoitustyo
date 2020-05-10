@@ -15,7 +15,7 @@ import teoskanta.title.dao.DBTitleDao;
 
 /**
  * Class to handle different title actions between ui and Dao
- * 
+ *
  */
 public class TitleService {
 
@@ -28,7 +28,9 @@ public class TitleService {
 
     /**
      * Constructor for class
-     * @param dbtitleDao DBTitleDao-type variable to construct the class with Dao class input
+     *
+     * @param dbtitleDao DBTitleDao-type variable to construct the class with
+     * Dao class input
      */
     public TitleService(DBTitleDao dbtitleDao) {
         this.dbTitleDao = dbtitleDao;
@@ -36,10 +38,11 @@ public class TitleService {
 
     /**
      * Method to create a title
+     *
      * @param name String-type input name
      * @param author String-type input author
      * @param year String-type input year
-     * @return 
+     * @return
      */
     public boolean createTitle(String name, String author, String year, String category) {
         dbUserDao = new DBUserDao();
@@ -62,6 +65,7 @@ public class TitleService {
 
     /**
      * Method to delete title
+     *
      * @param title Title-type variable to delete the title
      * @return returns true if title was deleted successfully and false if not
      */

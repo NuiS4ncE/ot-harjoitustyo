@@ -6,7 +6,7 @@ import teoskanta.user.dao.DBUserDao;
 
 /**
  * Class for handling actions between the user interface and DBUserDao
- * 
+ *
  */
 public class UserService {
 
@@ -15,15 +15,18 @@ public class UserService {
 
     /**
      * Constructor for class
-     * @param userDao DBUserDao-type variable to construct the class with Dao input
+     *
+     * @param userDao DBUserDao-type variable to construct the class with Dao
+     * input
      */
     public UserService(DBUserDao userDao) {
         this.dbUserDao = userDao;
         loggedIn = new User();
     }
-    
+
     /**
      * Method to create a new user
+     *
      * @param username String-type input username
      * @param password String-type input password
      * @return returns true if user creation was successful false if not
@@ -42,9 +45,11 @@ public class UserService {
         }
         return false;
     }
-    
+
     /**
-     * Method to login by setting the username and password values for the username and checking db for user
+     * Method to login by setting the username and password values for the
+     * username and checking db for user
+     *
      * @param username String-type variable username
      * @param password String-type variable password
      * @return returns true if user is found from db and false if not
@@ -70,9 +75,10 @@ public class UserService {
         }
         return false;
     }
-    
+
     /**
      * Method to logout by setting User object to null
+     *
      * @return returns true if successful and false if not
      */
     public boolean logout() {

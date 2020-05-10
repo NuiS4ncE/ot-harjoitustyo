@@ -11,7 +11,7 @@ import teoskanta.user.dao.DBUserDao;
 import teoskanta.title.dao.DBTitleDao;
 
 /**
-* Main graphical user interface class for the app
+ * Main graphical user interface class for the app
  */
 public class TeoskantaUi extends Application {
 
@@ -26,8 +26,9 @@ public class TeoskantaUi extends Application {
     private String loginTitle = "Teoskanta - Login";
 
     /**
-    * Method to start the graphical user interface of the application 
-    * @param primaryStage Stage-type variable to set the main stage
+     * Method to start the graphical user interface of the application
+     *
+     * @param primaryStage Stage-type variable to set the main stage
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -53,8 +54,10 @@ public class TeoskantaUi extends Application {
     }
 
     /**
-    * Method to check if the user is logged in and to clear the user object of values
-    * @param stage Stage-type variable for setting the close request
+     * Method to check if the user is logged in and to clear the user object of
+     * values
+     *
+     * @param stage Stage-type variable for setting the close request
      */
     public void closeRequest(Stage stage) {
         stage.setOnCloseRequest(e -> {
@@ -67,9 +70,10 @@ public class TeoskantaUi extends Application {
             Platform.exit();
         });
     }
+
     /**
-    * Main method to launch the app
-    */
+     * Main method to launch the app
+     */
     public static void main(String[] args) {
         launch(args);
     }

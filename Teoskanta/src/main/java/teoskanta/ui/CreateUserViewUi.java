@@ -71,7 +71,9 @@ public class CreateUserViewUi {
         Label userCreationMessage = new Label();
 
         Button createNewUserButton = new Button("create");
+        Button backButton = new Button("back");
         createNewUserButton.setPadding(new Insets(10));
+        backButton.setPadding(new Insets(10));
 
         createNewUserButton.setOnAction(e -> {
             String username = createUsernameInput.getText();
@@ -92,10 +94,14 @@ public class CreateUserViewUi {
 
         });
 
-        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton);
+        backButton.setOnAction(e -> {
+            primaryStage.setScene(sceneSwitcherUi.switchToLogin(loginTitle));
+        });
+
+        createUserPane.getChildren().addAll(userCreationMessage, createUsernamePane, newNamePane, createNewUserButton, backButton);
 
         return newUserScene = new Scene(createUserPane, 600, 250);
 
     }
-    
+
 }
